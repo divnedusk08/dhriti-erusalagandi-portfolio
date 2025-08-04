@@ -6,7 +6,22 @@ import { cn } from "@/lib/utils";
 
 const projectsData: Project[] = [
   {
-    id: "4",
+    id: "1",
+    title: "HourTrackr NJHS",
+    shortDescription: "A web app to help NJHS members easily track and view their volunteer hours, simplifying the process of managing service commitments.",
+    longDescription: "HourTrackr NJHS was developed to streamline the volunteer hour logging process for National Junior Honor Society members. The application provides a user-friendly interface for students to submit, track, and get an overview of their service hours, ensuring they meet their requirements with less administrative hassle.",
+    purpose: "To provide a centralized and easy-to-use digital tool for NJHS members to manage their volunteer hours, promoting accountability and organization.",
+    functionality: [
+      "User-friendly hour submission form",
+      "Dashboard to view total and individual hours logged",
+      "Secure user authentication for members",
+      "Automated tracking of service hour goals",
+    ],
+    techStack: ["React", "Firebase", "Netlify", "Shadcn/UI", "Tailwind CSS"],
+    liveLink: "https://hourtrackr.netlify.app/",
+  },
+  {
+    id: "2",
     title: "Weather App",
     shortDescription: "A desktop weather application built with PyQt5 that provides real-time weather information with beautiful emoji representations and temperature displays.",
     longDescription: "The Weather App is a desktop application developed using PyQt5 that allows users to get current weather information for any city. The app features a clean, modern interface with large emoji weather representations and displays temperature in Fahrenheit. It includes comprehensive error handling for various API response scenarios and network issues.",
@@ -202,21 +217,6 @@ if __name__ == "__main__":
   },
   {
     id: "3",
-    title: "HourTrackr NJHS",
-    shortDescription: "A web app to help NJHS members easily track and view their volunteer hours, simplifying the process of managing service commitments.",
-    longDescription: "HourTrackr NJHS was developed to streamline the volunteer hour logging process for National Junior Honor Society members. The application provides a user-friendly interface for students to submit, track, and get an overview of their service hours, ensuring they meet their requirements with less administrative hassle.",
-    purpose: "To provide a centralized and easy-to-use digital tool for NJHS members to manage their volunteer hours, promoting accountability and organization.",
-    functionality: [
-      "User-friendly hour submission form",
-      "Dashboard to view total and individual hours logged",
-      "Secure user authentication for members",
-      "Automated tracking of service hour goals",
-    ],
-    techStack: ["React", "Firebase", "Netlify", "Shadcn/UI", "Tailwind CSS"],
-    liveLink: "https://hourtrackr.netlify.app/",
-  },
-  {
-    id: "2",
     title: "TaskFlow",
     shortDescription: "My to-do list app is designed to help users stay organized, focused, and productive. With a clean interface and easy-to-use features, it makes task management simple and effective.",
     longDescription: "TaskFlow is a user-friendly to-do list application aimed at boosting personal productivity. It allows users to create, manage, and track their tasks, set priorities, and mark them as complete. The clean and intuitive interface ensures a seamless user experience.",
