@@ -6,7 +6,7 @@ import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ExternalLink, Github, Info, Lightbulb, Settings2 } from "lucide-react";
+import { ExternalLink, Github, Info, Lightbulb, Settings2, Code } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 
 export interface Project {
@@ -21,6 +21,7 @@ export interface Project {
   techStack: string[];
   liveLink?: string;
   repoLink?: string;
+  codeContent?: string; // Added for inline code display
 }
 
 interface ProjectCardProps {
@@ -29,6 +30,7 @@ interface ProjectCardProps {
 
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
+  const [isCodeDialogOpen, setIsCodeDialogOpen] = useState(false);
 
   return (
     <Card className="group flex h-full flex-col overflow-hidden shadow-lg transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 hover:border-accent bg-card/80 backdrop-blur-sm">
@@ -106,7 +108,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   </a>
                 </Button>
               )}
-              {project.repoLink && (
+              {project.title === "Weather App" && project.codeContent && (
+                <Button 
+                  variant="outline" 
+                  onClick={() => setIsCodeDialogOpen(true)}
+                >
+                  <Code className="mr-2 h-4 w-4" /> View Code
+                </Button>
+              )}
+              {project.repoLink && project.title !== "Weather App" && (
                 <Button asChild variant="outline">
                   <a href={project.repoLink} target="_blank" rel="noopener noreferrer">
                     <Github className="mr-2 h-4 w-4" /> View Code
@@ -117,6 +127,22 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </div>
         </DialogContent>
       </Dialog>
+
+      {/* Code Dialog for Weather App */}
+      <Dialog open={isCodeDialogOpen} onOpenChange={setIsCodeDialogOpen}>
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-bold text-primary">Weather App - Python Code</DialogTitle>
+            <DialogDescription>Complete source code for the Weather App</DialogDescription>
+          </DialogHeader>
+          <div className="max-h-[60vh] overflow-y-auto">
+            <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto">
+              <code>{project.codeContent}</code>
+            </pre>
+          </div>
+        </DialogContent>
+      </Dialog>
+
       <CardContent className={`flex-grow p-5 ${!project.imageUrl ? 'pt-5' : ''}`}>
         <CardTitle className="mb-2 text-xl font-semibold text-primary group-hover:text-accent">
           {project.title}
