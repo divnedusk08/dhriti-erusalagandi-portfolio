@@ -1,4 +1,3 @@
-
 "use server";
 
 import { z } from "zod";
@@ -39,9 +38,9 @@ export async function submitContactForm(
   const { name, email, message: userMessage } = parsed.data;
 
   try {
-    const data = await resend.emails.send({
-      from: 'Portfolio Contact <onboarding@resend.dev>', // IMPORTANT: For testing. For production, verify your domain with Resend.
-      to: ['divineduskdragon08@gmail.com'], // Updated email address
+    await resend.emails.send({
+      from: 'Portfolio Contact <onboarding@resend.dev>',
+      to: ['divineduskdragon08@gmail.com'],
       subject: `New Contact from ${name} via Portfolio`,
       html: `
         <div style="font-family: Arial, sans-serif; line-height: 1.6;">
@@ -54,10 +53,8 @@ export async function submitContactForm(
       `,
     });
 
-    console.log("Email sent successfully:", data);
-
     return {
-      message: `Thank you, ${name}! Your message has been received. I'll get back to you soon.`,
+      message: `Thank you, ${name}! Your message has been received.`,
       success: true,
       fields: undefined,
       issues: undefined,
@@ -65,18 +62,11 @@ export async function submitContactForm(
 
   } catch (error) {
     console.error("Failed to send email:", error);
-    let errorMessage = "Sorry, there was an error sending your message. Please try again later.";
-    if (error instanceof Error) {
-        // You can check for specific error messages from Resend if needed
-        // For example, if (error.message.includes("invalid_api_key"))
-        // errorMessage = "Email server configuration error. Please contact support.";
-    }
     return {
-      message: errorMessage,
+      message: "Sorry, there was an error sending your message. Please try again later.",
       success: false,
       fields: parsed.data,
       issues: ["Email sending failed due to a server error."],
     };
   }
 }
-

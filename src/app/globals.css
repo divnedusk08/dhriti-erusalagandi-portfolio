@@ -1,4 +1,3 @@
-
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,89 +12,80 @@ body {
 
 @layer base {
   :root {
-    /* Light Theme (Fallback, Dark is Default) */
-    --background: 210 29% 96%;
-    --foreground: 210 10% 23%;
-    --muted: 210 25% 90%;
-    --muted-foreground: 210 10% 45%;
-    --popover: 210 29% 98%;
-    --popover-foreground: 210 10% 23%;
-    --card: 210 29% 98%;
-    --card-foreground: 210 10% 23%;
-    --border: 210 20% 85%;
-    --input: 210 20% 88%;
-    --primary: 210 80% 50%; /* Blue for light theme primary */
+    /* Light Theme - Ice Blue & Midnight Navy */
+    --background: 220 30% 98%;
+    --foreground: 222 47% 11%;
+    --muted: 220 20% 94%;
+    --muted-foreground: 220 15% 45%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222 47% 11%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --border: 220 20% 88%;
+    --input: 220 20% 90%;
+    --primary: 220 90% 48%;
     --primary-foreground: 210 20% 98%;
-    --secondary: 260 70% 60%; /* Purpleish for light theme secondary */
-    --secondary-foreground: 260 70% 10%;
-    --accent: 30 90% 50%; /* Orange for light theme accent */
-    --accent-foreground: 30 85% 10%;
+    --secondary: 270 85% 60%;
+    --secondary-foreground: 270 85% 10%;
+    --accent: 195 90% 42%;
+    --accent-foreground: 195 90% 10%;
     --destructive: 0 84.2% 60.2%;
     --destructive-foreground: 0 0% 98%;
-    --ring: 210 80% 50%;
-    --radius: 0.5rem;
+    --ring: 220 90% 48%;
+    --radius: 0.75rem;
 
-    --chart-1: 210 80% 50%;
-    --chart-2: 30 90% 50%;
-    --chart-3: 260 70% 60%;
-    --chart-4: 210 25% 80%;
-    --chart-5: 210 10% 23%;
+    --chart-1: 220 90% 48%;
+    --chart-2: 270 85% 60%;
+    --chart-3: 195 90% 42%;
+    --chart-4: 220 20% 90%;
+    --chart-5: 222 47% 11%;
 
-    --sidebar-background: 210 29% 92%;
-    --sidebar-foreground: 210 10% 23%;
-    --sidebar-primary: 210 80% 50%;
+    --sidebar-background: 220 20% 96%;
+    --sidebar-foreground: 222 47% 11%;
+    --sidebar-primary: 220 90% 48%;
     --sidebar-primary-foreground: 210 20% 98%;
-    --sidebar-accent: 30 90% 50%;
-    --sidebar-accent-foreground: 30 85% 10%;
-    --sidebar-border: 210 20% 80%;
-    --sidebar-ring: 30 90% 50%;
+    --sidebar-accent: 270 85% 60%;
+    --sidebar-accent-foreground: 270 85% 10%;
+    --sidebar-border: 220 20% 88%;
+    --sidebar-ring: 220 90% 48%;
   }
 
- /* Dark theme with blue primary and orange accent */
   .dark {
-    --background: 225 15% 8%; /* Very Dark Desaturated Blue */
-    --foreground: 210 20% 95%;   /* Off-white */
-
-    --muted: 225 15% 20%;
-    --muted-foreground: 210 10% 65%; /* Lighter muted text */
-
-    --popover: 225 15% 10%;
-    --popover-foreground: 210 20% 95%;
-
-    --card: 225 15% 12%;
-    --card-foreground: 210 20% 95%;
-
-    --border: 225 10% 25%; /* Slightly lighter border */
-    --input: 225 10% 22%;  /* Slightly lighter input */
-
-    --primary: 210 80% 60%; /* Blue */
-    --primary-foreground: 210 20% 98%; /* Off-white for Blue */
-    
-    --secondary: 260 70% 55%; /* Darker Purpleish (kept from an earlier state) */
-    --secondary-foreground: 260 70% 95%;
-
-    --accent: 30 90% 55%; /* Orange */
-    --accent-foreground: 30 85% 15%; /* Dark text for Orange */
-
+    /* Dark Theme - Midnight Space & Electric Blue */
+    --background: 222 47% 6%;
+    --foreground: 220 20% 98%;
+    --muted: 222 35% 12%;
+    --muted-foreground: 220 15% 70%;
+    --popover: 222 40% 8%;
+    --popover-foreground: 220 20% 98%;
+    --card: 222 40% 9%;
+    --card-foreground: 220 20% 98%;
+    --border: 222 30% 16%;
+    --input: 222 30% 15%;
+    --primary: 217 95% 56%;
+    --primary-foreground: 220 20% 10%;
+    --secondary: 270 95% 68%;
+    --secondary-foreground: 270 95% 10%;
+    --accent: 190 95% 48%;
+    --accent-foreground: 190 95% 10%;
     --destructive: 0 70% 50%;
     --destructive-foreground: 0 0% 98%;
+    --ring: 217 95% 56%;
 
-    --ring: 210 80% 60%; /* Blue for focus rings */
+    --chart-1: 217 95% 56%;
+    --chart-2: 270 95% 68%;
+    --chart-3: 190 95% 48%;
+    --chart-4: 222 35% 22%;
+    --chart-5: 220 20% 98%;
 
-    --chart-1: 210 80% 60%; /* Blue */
-    --chart-2: 30 90% 55%; /* Orange */
-    --chart-3: 225 15% 50%; /* A different supporting color */
-    --chart-4: 225 15% 40%;
-    --chart-5: 210 20% 95%;
-
-    --sidebar-background: 225 15% 10%;
-    --sidebar-foreground: 210 20% 95%;
-    --sidebar-primary: 210 80% 60%;
-    --sidebar-primary-foreground: 210 20% 98%;
-    --sidebar-accent: 30 90% 55%;
-    --sidebar-accent-foreground: 30 85% 15%;
-    --sidebar-border: 225 10% 20%;
-    --sidebar-ring: 210 80% 60%;
+    --sidebar-background: 222 40% 8%;
+    --sidebar-foreground: 220 20% 98%;
+    --sidebar-primary: 217 95% 56%;
+    --sidebar-primary-foreground: 220 20% 10%;
+    --sidebar-accent: 270 95% 68%;
+    --sidebar-accent-foreground: 270 95% 10%;
+    --sidebar-border: 222 30% 14%;
+    --sidebar-ring: 217 95% 56%;
   }
 }
 
@@ -110,11 +100,11 @@ body {
     flex-direction: column;
   }
   main {
-    flex-grow: 1;
+    @apply flex-1;
   }
 }
 
-/* Subtle page transition */
+/* Animations */
 .page-transition {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -124,7 +114,6 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-/* Typewriter cursor blink animation */
 @keyframes blink {
   0%, 100% { opacity: 1; }
   50% { opacity: 0; }
@@ -140,7 +129,7 @@ body {
 }
 
 .animate-fade-out {
-  animation: fadeOutCursor 0.3s forwards;
+  animation: fadeOutCursor 0.2s forwards;
 }
 
 @keyframes fadeOutCursor {
@@ -148,8 +137,6 @@ body {
   to { opacity: 0; }
 }
 
-
-/* Subtle blink for scroll prompt */
 @keyframes subtle-blink {
   0%, 100% { opacity: 0.7; }
   50% { opacity: 1; }
@@ -159,35 +146,21 @@ body {
   animation: subtle-blink 1.5s infinite;
 }
 
-/* Bobbing animation for scroll arrow */
 @keyframes bobbing {
-  0%, 100% {
-    transform: translateY(0);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 .animate-bobbing {
   animation: bobbing 2s infinite ease-in-out;
 }
 
-
-/* Python-style Preloader Styles */
+/* Python-style Preloader */
 .python-preloader-container {
-  background-color: #0d1117; /* GitHub dark terminal background */
-  color: #c9d1d9; /* GitHub dark terminal text */
+  background-color: #050505;
+  color: #c9d1d9;
   font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  font-size: 1.25rem; /* Increased base font size for code */
+  font-size: 1.25rem;
   padding: 1.5rem;
-}
-
-.python-preloader-container.cursor-pointer {
-  cursor: pointer;
-}
-
-.python-preloader-content {
-  width: 100%;
 }
 
 .code-line {
@@ -197,51 +170,37 @@ body {
 }
 
 .line-number {
-  color: #8b949e; /* GitHub dark line number color */
+  color: #8b949e;
   margin-right: 1.5ch;
   user-select: none;
-  text-align: right; /* Optional: for consistent spacing if numbers vary in digits */
-  min-width: 2ch; /* Ensure some space for line numbers */
+  min-width: 2ch;
+  text-align: right;
 }
 
 .code-line span:not(.line-number) {
-  color: #58a6ff; /* Python print function color (example) */
-}
-
-.code-line span:not(.line-number) .typewriter-cursor {
-  color: #c9d1d9; /* Match general text color for cursor */
+  color: #58a6ff;
 }
 
 .click-prompt-inline {
-  color: #f0b90b; /* A bright yellow/gold for prompt */
-  white-space: nowrap;
+  color: #f0b90b;
 }
 
-/* Hero background interactive effect */
-#about {
-  position: relative;
-  overflow: hidden; /* Helps contain pseudo-elements if they were to expand */
-  background: radial-gradient(600px circle at var(--mouse-x) var(--mouse-y), hsl(var(--primary) / 0.15), transparent 80%);
-  transition: background 0.1s ease-out;
-}
-
-/* Interactive text hover effect - Zoom */
+/* Interactive Text Hover */
 .interactive-text-hover {
   position: relative;
-  display: inline-block; /* Necessary for transform to work correctly */
+  display: inline-block;
   cursor: pointer;
   transition: transform 0.3s ease-out;
 }
 
 .interactive-text-hover:hover {
-  transform: scale(1.05); /* Zoom in slightly */
+  transform: scale(1.03);
 }
 
-/* Text Glint Hover Effect */
 .text-glint-hover {
-  position: relative; /* Needed for ::after positioning */
-  overflow: hidden;   /* Keeps the glint within the text boundaries */
-  display: inline-block; /* Ensures it works on potentially inline title elements */
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
 }
 
 .text-glint-hover::after {
@@ -249,78 +208,24 @@ body {
   position: absolute;
   top: -50%;
   left: -50%;
-  width: 20px; /* Adjust width of the glint line */
-  height: 200%; /* Ensure it covers the text height */
+  width: 20px;
+  height: 200%;
   background: linear-gradient(
     to right,
-    hsla(0, 0%, 100%, 0) 0%,      /* Transparent start */
-    hsla(0, 0%, 100%, 0.3) 50%,   /* Semi-transparent white middle */
-    hsla(0, 0%, 100%, 0) 100%     /* Transparent end */
+    hsla(0, 0%, 100%, 0) 0%,
+    hsla(0, 0%, 100%, 0.3) 50%,
+    hsla(0, 0%, 100%, 0) 100%
   );
-  transform: skewX(-25deg) translateX(-250%); /* Initial position: far left, skewed */
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); /* Smooth sweep animation */
-  pointer-events: none; /* So it doesn't interfere with text selection or other hovers */
-}
-
-.text-glint-hover:hover::after {
-  transform: skewX(-25deg) translateX(350%); /* Final position: far right (increased to ensure it clears wider text) */
-}
-
-
-/* Number fill preloader styles */
-.number-fill-preloader {
-  position: fixed;
-  inset: 0;
-  background-color: hsl(var(--background));
-  color: hsl(var(--foreground));
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 100;
-  opacity: 1;
-  transition: opacity 0.5s ease-in-out;
-}
-
-.number-fill-preloader.hidden {
-  opacity: 0;
+  transform: skewX(-25deg) translateX(-250%);
+  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
   pointer-events: none;
 }
 
-.number-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem; /* Small gap between numbers */
-  max-width: 80vw;
-  max-height: 70vh;
-  overflow: hidden; /* Prevent scrollbars within the grid itself */
-  justify-content: center;
-  align-items: center;
+.text-glint-hover:hover::after {
+  transform: skewX(-25deg) translateX(350%);
 }
 
-@keyframes numberFadeIn {
-  from { opacity: 0; transform: scale(0.8); }
-  to { opacity: 1; transform: scale(1); }
-}
-
-.number-grid-item {
-  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, Courier, monospace;
-  font-size: 0.75rem; /* Small font for numbers */
-  padding: 0.1rem 0.3rem;
-  color: hsl(var(--muted-foreground));
-  opacity: 0;
-  animation: numberFadeIn 0.3s ease-out forwards;
-}
-
-.number-fill-prompt {
-  margin-top: 1.5rem;
-  font-size: 1.25rem;
-  color: hsl(var(--accent));
-  cursor: pointer;
-  animation: subtle-blink 1.5s infinite;
-}
-
-/* Scroll-triggered animations */
+/* Scroll Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
@@ -333,17 +238,16 @@ body {
 }
 
 .fade-in-up {
-  opacity: 0; /* Initial state for elements that will fade in */
+  opacity: 0;
 }
 
 .fade-in-up.is-visible {
   animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
 }
 
-/* For scroll-triggered animations on items within a container */
 .stagger-fade-in-container .stagger-item {
   opacity: 0;
-  transform: translateY(30px); /* Keep initial state consistent with fadeInUp */
+  transform: translateY(30px);
 }
 
 .stagger-fade-in-container.is-visible .stagger-item {
