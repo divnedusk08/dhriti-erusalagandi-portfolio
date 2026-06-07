@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -44,8 +45,8 @@ export default function HomePage() {
         setCursorAnimationClass('animate-fade-out');
         cursorFadeTimeoutId = setTimeout(() => {
           setIsCursorInDOM(false);
-        }, 100); // Snappy disappear
-      }, 200);
+        }, 50); // Snappy disappear
+      }, 150);
     }
 
     return () => {
