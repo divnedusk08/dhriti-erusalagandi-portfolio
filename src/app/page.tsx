@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -39,13 +38,13 @@ export default function HomePage() {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
       }, 100);
     } else {
-      // Typing finished - disappear faster
+      // Typing finished - disappear fast as requested
       setCursorAnimationClass('animate-blink');
       cursorBlinkTimeoutId = setTimeout(() => {
         setCursorAnimationClass('animate-fade-out');
         cursorFadeTimeoutId = setTimeout(() => {
           setIsCursorInDOM(false);
-        }, 50); // Snappy disappear
+        }, 50); 
       }, 150);
     }
 

@@ -97,9 +97,6 @@ body {
     display: flex;
     flex-direction: column;
   }
-  main {
-    @apply flex-1;
-  }
 }
 
 .page-transition {
