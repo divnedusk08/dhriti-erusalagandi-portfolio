@@ -44,8 +44,8 @@ export default function HomePage() {
         setCursorAnimationClass('animate-fade-out');
         cursorFadeTimeoutId = setTimeout(() => {
           setIsCursorInDOM(false);
-        }, 100); // Snap disappear
-      }, 200); // Shorter wait
+        }, 100); // Snappy disappear
+      }, 200);
     }
 
     return () => {
@@ -155,17 +155,14 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Achievements Section */}
         <section id="achievements" className="py-12 md:py-16 bg-background">
           <AchievementsSection />
         </section>
 
-        {/* Projects Section */}
         <section id="projects" className="py-12 md:py-16 bg-primary/5 dark:bg-primary/5">
           <ProjectsSection />
         </section>
 
-        {/* Contact Section */}
         <section id="contact" className="py-12 md:py-16 bg-background">
           <ContactSection />
         </section>

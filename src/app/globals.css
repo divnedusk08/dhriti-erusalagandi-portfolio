@@ -12,7 +12,6 @@ body {
 
 @layer base {
   :root {
-    /* Light Theme - Ice Blue & Midnight Navy */
     --background: 220 30% 98%;
     --foreground: 222 47% 11%;
     --muted: 220 20% 94%;
@@ -51,7 +50,6 @@ body {
   }
 
   .dark {
-    /* Dark Theme - Midnight Space & Electric Blue */
     --background: 222 47% 6%;
     --foreground: 220 20% 98%;
     --muted: 222 35% 12%;
@@ -104,7 +102,6 @@ body {
   }
 }
 
-/* Animations */
 .page-transition {
   animation: fadeIn 0.5s ease-in-out;
 }
@@ -154,7 +151,6 @@ body {
   animation: bobbing 2s infinite ease-in-out;
 }
 
-/* Python-style Preloader */
 .python-preloader-container {
   background-color: #050505;
   color: #c9d1d9;
@@ -185,7 +181,6 @@ body {
   color: #f0b90b;
 }
 
-/* Interactive Text Hover */
 .interactive-text-hover {
   position: relative;
   display: inline-block;
@@ -225,7 +220,6 @@ body {
   transform: skewX(-25deg) translateX(350%);
 }
 
-/* Scroll Animations */
 @keyframes fadeInUp {
   from {
     opacity: 0;
