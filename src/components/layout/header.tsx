@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -48,7 +49,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <Link 
           href="/#about" 
-          className="flex items-center space-x-2 ml-6 md:ml-8 transition-all duration-300" 
+          className="flex items-center space-x-2 ml-8 md:ml-12 transition-all duration-300" 
           aria-label="Dhriti Home"
         >
           <Logo />

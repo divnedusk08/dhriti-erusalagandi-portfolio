@@ -16,6 +16,8 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useFirestore } from "@/firebase";
+import { errorEmitter } from "@/firebase/error-emitter";
+import { FirestorePermissionError } from "@/firebase/errors";
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -36,27 +38,30 @@ export default function ContactSection() {
     if (!db) return;
     setIsSubmitting(true);
 
-    try {
-      await addDoc(collection(db, "contacts"), {
-        ...values,
-        createdAt: serverTimestamp(),
-      });
+    const contactsRef = collection(db, "contacts");
 
-      toast({
-        title: "Success!",
-        description: "Your message has been saved. I'll get back to you soon!",
+    // Optimistic mutation call - no await for the Promise
+    addDoc(contactsRef, {
+      ...values,
+      createdAt: serverTimestamp(),
+    }).catch(async (serverError) => {
+      // Revert or show error if the background sync fails
+      const permissionError = new FirestorePermissionError({
+        path: contactsRef.path,
+        operation: 'create',
+        requestResourceData: values,
       });
-      form.reset();
-    } catch (error) {
-      console.error("Error submitting form:", error);
-      toast({
-        title: "Error",
-        description: "Failed to send message. Please try again later.",
-        variant: "destructive",
-      });
-    } finally {
-      setIsSubmitting(false);
-    }
+      errorEmitter.emit('permission-error', permissionError);
+    });
+
+    // Provide immediate feedback to the user
+    toast({
+      title: "Success!",
+      description: "Thank you! Your message has been sent.",
+    });
+    
+    form.reset();
+    setIsSubmitting(false);
   }
 
   const myInfo = [
