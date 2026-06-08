@@ -8,17 +8,17 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       width="280"
       height="28"
       aria-label="Dhriti Erusalagandi Logo"
-      className="h-7 w-auto transition-transform duration-300 hover:scale-105"
+      className="h-6 w-auto transition-transform duration-300 hover:scale-105"
       {...props}
     >
       <text
         x="0"
-        y="22"
-        fontFamily="var(--font-geist-sans), sans-serif"
-        fontSize="26"
+        y="21"
+        fontFamily="var(--font-geist-sans), Arial, sans-serif"
+        fontSize="22"
         fontWeight="400"
         fill="currentColor"
-        letterSpacing="-0.02em"
+        letterSpacing="-0.01em"
       >
         Dhriti Erusalagandi
       </text>
