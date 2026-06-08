@@ -1,80 +1,63 @@
 
 "use client";
 
-import { useActionState, useEffect } from "react";
-import { useFormStatus } from "react-dom";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContactFormSchema, type ContactFormValues } from "@/lib/schemas";
-import { submitContactForm } from "@/lib/actions";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
-import { Loader2, Mail, Send, MessageSquare, User, MapPin, Building } from "lucide-react";
+import { Loader2, Mail, Send, MessageSquare, User, MapPin } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
-
-const initialState = {
-  message: "",
-  success: false,
-  fields: undefined as Record<string, string> | undefined,
-  issues: undefined as string[] | undefined,
-};
-
-function SubmitButton() {
-  const { pending } = useFormStatus();
-  return (
-    <Button type="submit" disabled={pending} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
-      {pending ? (
-        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-      ) : (
-        <Send className="mr-2 h-4 w-4" />
-      )}
-      Send Message
-    </Button>
-  );
-}
+import { collection, addDoc, serverTimestamp } from "firebase/firestore";
+import { useFirestore } from "@/firebase";
 
 export default function ContactSection() {
-  const [state, formAction] = useActionState(submitContactForm, initialState);
   const { toast } = useToast();
+  const db = useFirestore();
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [containerRef, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   const form = useForm<ContactFormValues>({
     resolver: zodResolver(ContactFormSchema),
     defaultValues: {
-      name: state.fields?.name || "",
-      email: state.fields?.email || "",
-      message: state.fields?.message || "",
+      name: "",
+      email: "",
+      message: "",
     },
   });
 
-  useEffect(() => {
-    if (state.fields) {
-      form.setValue("name", state.fields.name || "");
-      form.setValue("email", state.fields.email || "");
-      form.setValue("message", state.fields.message || "");
-    }
+  async function onSubmit(values: ContactFormValues) {
+    if (!db) return;
+    setIsSubmitting(true);
 
-    if (state.message) {
-      if (state.success) {
-        toast({
-          title: "Success!",
-          description: state.message,
-        });
-        form.reset({ name: "", email: "", message: "" });
-      } else {
-        toast({
-          title: "Error",
-          description: state.message || "Failed to send message.",
-          variant: "destructive",
-        });
-      }
+    try {
+      await addDoc(collection(db, "contacts"), {
+        ...values,
+        createdAt: serverTimestamp(),
+      });
+
+      toast({
+        title: "Success!",
+        description: "Your message has been saved. I'll get back to you soon!",
+      });
+      form.reset();
+    } catch (error) {
+      console.error("Error submitting form:", error);
+      toast({
+        title: "Error",
+        description: "Failed to send message. Please try again later.",
+        variant: "destructive",
+      });
+    } finally {
+      setIsSubmitting(false);
     }
-  }, [state, toast, form]);
+  }
 
   const myInfo = [
     { icon: User, label: "Full Name", value: "Dhriti Erusalagandi" },
@@ -98,7 +81,6 @@ export default function ContactSection() {
           { "is-visible": isVisible }
         )}
       >
-        {/* My Info Section */}
         <Card className="shadow-xl bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-primary interactive-text-hover">My Info</CardTitle>
@@ -116,14 +98,13 @@ export default function ContactSection() {
           </CardContent>
         </Card>
 
-        {/* Send Message Form Section */}
         <Card className="shadow-xl bg-card/80 backdrop-blur-sm">
           <CardHeader>
             <CardTitle className="text-2xl font-semibold text-primary interactive-text-hover">Send Message</CardTitle>
           </CardHeader>
           <CardContent>
             <Form {...form}>
-              <form action={formAction} className="space-y-6">
+              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
                   control={form.control}
                   name="name"
@@ -167,7 +148,14 @@ export default function ContactSection() {
                     </FormItem>
                   )}
                 />
-                <SubmitButton />
+                <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
+                  {isSubmitting ? (
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                  ) : (
+                    <Send className="mr-2 h-4 w-4" />
+                  )}
+                  Send Message
+                </Button>
               </form>
             </Form>
           </CardContent>
