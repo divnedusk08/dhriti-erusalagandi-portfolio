@@ -46,7 +46,7 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-16 w-full items-center justify-between px-6">
+      <div className="flex h-16 w-full items-center justify-between px-2 md:px-4">
         <Link 
           href="/#about" 
           className="flex items-center space-x-2 transition-all duration-300" 
