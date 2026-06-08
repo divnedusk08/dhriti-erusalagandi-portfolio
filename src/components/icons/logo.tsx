@@ -16,7 +16,7 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
         y="22"
         fontFamily="var(--font-geist-sans), sans-serif"
         fontSize="26"
-        fontWeight="600"
+        fontWeight="400"
         fill="currentColor"
         letterSpacing="-0.02em"
       >
