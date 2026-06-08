@@ -16,8 +16,7 @@ import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useFirestore } from "@/firebase";
-import { errorEmitter } from "@/firebase/error-emitter";
-import { FirestorePermissionError } from "@/firebase/errors";
+import { submitContactForm } from "@/lib/actions";
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -35,33 +34,50 @@ export default function ContactSection() {
   });
 
   async function onSubmit(values: ContactFormValues) {
-    if (!db) return;
     setIsSubmitting(true);
 
-    const contactsRef = collection(db, "contacts");
+    try {
+      // 1. Send via Server Action (Gmail)
+      const formData = new FormData();
+      formData.append("name", values.name);
+      formData.append("email", values.email);
+      formData.append("message", values.message);
 
-    // Optimistic mutation call - no await for the Promise
-    addDoc(contactsRef, {
-      ...values,
-      createdAt: serverTimestamp(),
-    }).catch(async (serverError) => {
-      // Revert or show error if the background sync fails
-      const permissionError = new FirestorePermissionError({
-        path: contactsRef.path,
-        operation: 'create',
-        requestResourceData: values,
+      const result = await submitContactForm({ success: false, message: "" }, formData);
+
+      if (result.success) {
+        toast({
+          title: "Success!",
+          description: result.message,
+        });
+        form.reset();
+      } else {
+        toast({
+          variant: "destructive",
+          title: "Sending Failed",
+          description: result.message,
+        });
+      }
+
+      // 2. Backup to Firestore (Database)
+      if (db) {
+        const contactsRef = collection(db, "contacts");
+        addDoc(contactsRef, {
+          ...values,
+          createdAt: serverTimestamp(),
+        }).catch(() => {
+          // Silent backup catch
+        });
+      }
+    } catch (error) {
+      toast({
+        variant: "destructive",
+        title: "Error",
+        description: "Something went wrong. Please try again.",
       });
-      errorEmitter.emit('permission-error', permissionError);
-    });
-
-    // Provide immediate feedback to the user
-    toast({
-      title: "Success!",
-      description: "Thank you! Your message has been sent.",
-    });
-    
-    form.reset();
-    setIsSubmitting(false);
+    } finally {
+      setIsSubmitting(false);
+    }
   }
 
   const myInfo = [

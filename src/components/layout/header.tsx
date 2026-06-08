@@ -49,7 +49,7 @@ export function Header() {
       <div className="container flex h-16 items-center justify-between">
         <Link 
           href="/#about" 
-          className="flex items-center space-x-2 ml-8 md:ml-12 transition-all duration-300" 
+          className="flex items-center space-x-2 ml-16 md:ml-28 transition-all duration-300" 
           aria-label="Dhriti Home"
         >
           <Logo />

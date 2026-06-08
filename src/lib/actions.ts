@@ -1,3 +1,4 @@
+
 "use server";
 
 import { z } from "zod";
@@ -11,8 +12,6 @@ export type ContactFormState = {
   success: boolean;
 };
 
-const resend = new Resend(process.env.RESEND_API_KEY || "re_123");
-
 export async function submitContactForm(
   prevState: ContactFormState,
   data: FormData
@@ -21,12 +20,6 @@ export async function submitContactForm(
   const parsed = ContactFormSchema.safeParse(formData);
 
   if (!parsed.success) {
-    const fieldErrors: Record<string, string> = {};
-    parsed.error.issues.forEach(issue => {
-      if (issue.path.length > 0) {
-        fieldErrors[issue.path[0] as string] = issue.message;
-      }
-    });
     return {
       message: "Invalid form data. Please check the fields below.",
       fields: formData as Record<string, string>,
@@ -37,8 +30,22 @@ export async function submitContactForm(
 
   const { name, email, message: userMessage } = parsed.data;
 
+  // Safely check for API key
+  const apiKey = process.env.RESEND_API_KEY;
+
+  if (!apiKey || apiKey.trim() === "") {
+    console.warn("RESEND_API_KEY is missing. Please add it to your environment variables.");
+    return {
+      message: "Email service not configured. Please add your RESEND_API_KEY to receive emails.",
+      success: false,
+    };
+  }
+
   try {
-    const response = await resend.emails.send({
+    // Initialize Resend only when the key is confirmed to exist
+    const resend = new Resend(apiKey);
+
+    await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['divineduskdragon08@gmail.com'],
       subject: `New Contact from ${name} via Portfolio`,
@@ -54,19 +61,15 @@ export async function submitContactForm(
     });
 
     return {
-      message: `Thank you, ${name}! Your message has been received.`,
+      message: `Thank you, ${name}! Your message has been sent to my Gmail.`,
       success: true,
-      fields: undefined,
-      issues: undefined,
     };
 
-  } catch (error) {
+  } catch (error: any) {
     console.error("Failed to send email:", error);
     return {
-      message: "Sorry, there was an error sending your message. Please try again later.",
+      message: `Error sending message: ${error.message || "Please try again later."}`,
       success: false,
-      fields: parsed.data,
-      issues: ["Email sending failed due to a server error."],
     };
   }
 }
