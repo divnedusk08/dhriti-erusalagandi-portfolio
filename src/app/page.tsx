@@ -15,7 +15,7 @@ import { FloatingPaths } from "@/components/ui/background-paths";
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
   const [currentBio] = useState<string>(
-    "I’m a passionate 8th grader at Stiles Middle School with a strong interest in entrepreneurship, creativity, and making a difference through innovative ideas. I love coming up with original solutions, exploring new projects, and learning through hands-on experience. Outside of that, I enjoy painting—it keeps me inspired and fuels my creativity. I'm always open to new challenges that help me grow and create something meaningful."
+    "I'm a passionate freshman at Rouse High School with a strong interest in biomedical engineering, innovation, and problem-solving. I enjoy exploring how science and technology can be used to improve lives and create meaningful solutions to real-world challenges. Through academics, leadership experiences, volunteer work, and personal projects, I continuously seek opportunities to learn, grow, and make a positive impact. Outside of school, I enjoy coding, building projects, and exploring new technologies, which allow me to combine creativity with critical thinking and bring ideas to life."
   );
 
   const fullTitle = "Hi, I'm Dhriti";
@@ -39,7 +39,6 @@ export default function HomePage() {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
       }, 100);
     } else {
-      // Typing finished - disappear fast as requested
       setCursorAnimationClass('animate-blink');
       cursorBlinkTimeoutId = setTimeout(() => {
         setCursorAnimationClass('animate-fade-out');
@@ -63,18 +62,18 @@ export default function HomePage() {
   const areasOfInterest = [
     {
       icon: Code,
-      title: "Web Development",
-      description: "Building responsive and engaging web experiences with modern technologies.",
+      title: "Biomedical Tech",
+      description: "Exploring the intersection of engineering and healthcare to improve lives.",
     },
     {
       icon: Brain,
       title: "Problem Solving",
-      description: "Tackling challenges with analytical thinking and innovative solutions.",
+      description: "Tackling complex challenges with critical thinking and scientific inquiry.",
     },
     {
       icon: Lightbulb,
-      title: "Entrepreneurship",
-      description: "Developing innovative ideas and turning them into impactful ventures.",
+      title: "Innovation",
+      description: "Bringing creative ideas to life through prototyping and experimentation.",
     },
   ];
 
@@ -90,11 +89,11 @@ export default function HomePage() {
           </div>
           <div className="relative z-10 flex flex-col items-center justify-center">
             <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
-              <span>Student</span>
-              <span className="text-muted-foreground/50">•</span>
-              <span>Leader</span>
+              <span>Freshman</span>
               <span className="text-muted-foreground/50">•</span>
               <span>Innovator</span>
+              <span className="text-muted-foreground/50">•</span>
+              <span>Leader</span>
             </div>
             <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl interactive-text-hover text-glint-hover pb-2">
               {typedTitle}

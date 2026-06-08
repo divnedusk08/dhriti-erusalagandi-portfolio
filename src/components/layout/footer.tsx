@@ -1,3 +1,4 @@
+
 export function Footer() {
   return (
     <footer className="border-t border-border/40 py-6 md:py-8">
