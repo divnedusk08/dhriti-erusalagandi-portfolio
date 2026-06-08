@@ -5,20 +5,21 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 220 22" // Adjusted viewBox for larger font
-      width="220" // Adjusted width for larger font
-      height="22" // Adjusted height for larger font
+      viewBox="0 0 280 28"
+      width="280"
+      height="28"
       aria-label="Dhriti Erusalagandi Logo"
-      className="h-5 w-auto" // Height is fixed, width will scale based on viewBox
+      className="h-7 w-auto transition-transform duration-300 hover:scale-105"
       {...props}
     >
       <text
         x="0"
-        y="17" // Adjusted y for better vertical alignment with larger font
+        y="22"
         fontFamily="var(--font-geist-sans), sans-serif"
-        fontSize="22"  // Increased font size
-        fontWeight="normal"
+        fontSize="26"
+        fontWeight="600"
         fill="currentColor"
+        letterSpacing="-0.02em"
       >
         Dhriti Erusalagandi
       </text>

@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -95,11 +96,11 @@ export default function HomePage() {
               <span className="text-muted-foreground/50">•</span>
               <span>Innovator</span>
             </div>
-            <h1 className="text-5xl font-bold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-6xl md:text-7xl interactive-text-hover text-glint-hover pb-2">
+            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl interactive-text-hover text-glint-hover pb-2">
               {typedTitle}
               {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground`}>|</span>}
             </h1>
-            <p className="mt-6 max-w-2xl font-[var(--font-lora)] text-base sm:text-lg text-muted-foreground interactive-text-hover leading-relaxed">
+            <p className="mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground interactive-text-hover leading-relaxed">
               Aspiring Biomedical Engineer and Entrepreneur | Rouse High School | Class of 2030
             </p>
             <div className="mt-10 flex flex-row gap-4 items-center justify-center">
