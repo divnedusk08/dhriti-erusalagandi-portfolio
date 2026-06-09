@@ -19,16 +19,6 @@ interface Achievement {
 
 const achievementsData: Achievement[] = [
   {
-    id: "5",
-    title: "NJHS Member",
-    issuer: "fsms.njhs@leanderisd.org",
-    date: "May 14, 2025",
-    description: "As an NJHS member, I’m committed to academic excellence, leadership, and service. I strive to set a positive example, give back to my community, and grow as a responsible and respectful student.",
-    icon: Star,
-    category: "Recognition",
-    certificateUrl: "https://www.canva.com/design/DAGoyESDlWA/MA5K589KntScG5sSdWa-wg/view?utm_content=DAGoyESDlWA&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h86560a1732",
-  },
-  {
     id: "8",
     title: "NJHS Officer",
     issuer: "fsms.njhs@leanderisd.org",
