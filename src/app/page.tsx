@@ -89,11 +89,11 @@ export default function HomePage() {
           </div>
           <div className="relative z-10 flex flex-col items-center justify-center">
             <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
-              <span>Freshman</span>
-              <span className="text-muted-foreground/50">•</span>
-              <span>Innovator</span>
+              <span>Student</span>
               <span className="text-muted-foreground/50">•</span>
               <span>Leader</span>
+              <span className="text-muted-foreground/50">•</span>
+              <span>Innovator</span>
             </div>
             <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl interactive-text-hover text-glint-hover pb-2">
               {typedTitle}
