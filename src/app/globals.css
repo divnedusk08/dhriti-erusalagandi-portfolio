@@ -148,6 +148,15 @@ body {
   animation: bobbing 2s infinite ease-in-out;
 }
 
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+.animate-grid-move {
+  animation: gridMove 20s linear infinite;
+}
+
 .python-preloader-container {
   background-color: #050505;
   color: #c9d1d9;
