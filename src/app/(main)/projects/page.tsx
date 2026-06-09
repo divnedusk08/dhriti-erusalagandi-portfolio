@@ -33,7 +33,7 @@ const projectsData: Project[] = [
       "Reflection on learning experiences and future goals",
     ],
     techStack: ["Canva", "Digital Design", "Portfolio Management"],
-    liveLink: "https://www.canva.com/design/DAHKtflpDNY/OT6HAtIb-I98RGeiHjeotQ/view?utm_content=DAHKtflpDNY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h790532454b",
+    liveLink: "https://www.canva.com/design/DAHKtflpDNY/OT6HAtIb-I98RGeiHjeotQ/view",
   },
   {
     id: "2",
@@ -244,7 +244,7 @@ if __name__ == "__main__":
       "User-friendly interface for easy task management",
     ],
     techStack: ["React", "TypeScript", "Shadcn/UI", "Tailwind CSS", "Local Storage"],
-    liveLink: "https://9000-firebase-studio-1748367990635.cluster-pgviq6mvsncnqxx6kr7pbz65v6.cloudworkstations.dev",
+    liveLink: "https://taskflow-demo.vercel.app",
   },
 ];
 
@@ -275,7 +275,7 @@ export default function ProjectsSection() {
               key={project.id} 
               className="stagger-item"
               style={{ animationDelay: `${index * 100}ms` }}
-            > {/* Stagger animation */}
+            >
               <ProjectCard project={project} />
             </div>
           ))}

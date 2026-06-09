@@ -46,16 +46,16 @@ export function Header() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-16 w-full items-center justify-between px-1 md:px-2">
+      <div className="flex h-16 w-full items-center justify-between px-0 sm:px-4">
         <Link 
           href="/#about" 
-          className="flex items-center space-x-2 transition-all duration-300" 
+          className="flex items-center transition-all duration-300 pl-0" 
           aria-label="Dhriti Home"
         >
           <Logo />
         </Link>
         
-        <nav className="hidden md:flex items-center space-x-2">
+        <nav className="hidden md:flex items-center space-x-2 pr-4">
           {navItems.map((item) => (
             <DesktopNavLink key={item.href} {...item} />
           ))}
@@ -71,7 +71,7 @@ export function Header() {
           </a>
         </nav>
 
-        <div className="md:hidden">
+        <div className="md:hidden pr-4">
           <Sheet open={isSheetOpen} onOpenChange={setIsSheetOpen}>
             <SheetTrigger asChild>
               <Button variant="ghost" size="icon">

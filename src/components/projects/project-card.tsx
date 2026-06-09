@@ -14,14 +14,14 @@ export interface Project {
   title: string;
   shortDescription: string;
   longDescription: string;
-  imageUrl?: string; // Made imageUrl optional
-  imageHint?: string; // Made imageHint optional
+  imageUrl?: string;
+  imageHint?: string;
   purpose: string;
   functionality: string[];
   techStack: string[];
   liveLink?: string;
   repoLink?: string;
-  codeContent?: string; // Added for inline code display
+  codeContent?: string;
 }
 
 interface ProjectCardProps {
@@ -32,10 +32,12 @@ export function ProjectCard({ project }: ProjectCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isCodeDialogOpen, setIsCodeDialogOpen] = useState(false);
 
+  const isCanvaLink = project.liveLink?.includes("canva.com");
+
   return (
     <Card className="group flex h-full flex-col overflow-hidden shadow-lg transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 hover:border-accent bg-card/80 backdrop-blur-sm">
       <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
-        {project.imageUrl && ( // Conditionally render image and trigger if imageUrl exists
+        {project.imageUrl && (
           <CardHeader className="relative p-0">
             <DialogTrigger asChild>
               <button className="block aspect-[16/10] w-full cursor-pointer overflow-hidden" aria-label={`View details for ${project.title}`}>
@@ -57,7 +59,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <DialogDescription className="text-md text-muted-foreground">{project.shortDescription}</DialogDescription>
           </DialogHeader>
           <div className="max-h-[70vh] overflow-y-auto px-6 pb-6">
-            {project.imageUrl && ( // Also conditionally render image inside dialog
+            {project.imageUrl && (
               <Image
                 src={project.imageUrl}
                 alt={project.title}
@@ -101,14 +103,15 @@ export function ProjectCard({ project }: ProjectCardProps) {
               </div>
             </section>
             <div className="mt-6 flex flex-wrap gap-3">
-              {project.title === "HourTrackr NJHS" && project.liveLink && (
+              {project.liveLink && (
                 <Button asChild variant="default" className="bg-accent text-accent-foreground hover:bg-accent/90">
                   <a href={project.liveLink} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" /> View Live
+                    <ExternalLink className="mr-2 h-4 w-4" /> 
+                    {isCanvaLink ? "View on Canva" : "View Live"}
                   </a>
                 </Button>
               )}
-              {project.title === "Weather App" && project.codeContent && (
+              {project.codeContent && (
                 <Button 
                   variant="outline" 
                   onClick={() => setIsCodeDialogOpen(true)}
@@ -116,10 +119,10 @@ export function ProjectCard({ project }: ProjectCardProps) {
                   <Code className="mr-2 h-4 w-4" /> View Code
                 </Button>
               )}
-              {project.repoLink && project.title !== "Weather App" && (
+              {project.repoLink && (
                 <Button asChild variant="outline">
                   <a href={project.repoLink} target="_blank" rel="noopener noreferrer">
-                    <Github className="mr-2 h-4 w-4" /> View Code
+                    <Github className="mr-2 h-4 w-4" /> View Repo
                   </a>
                 </Button>
               )}
@@ -128,12 +131,11 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </DialogContent>
       </Dialog>
 
-      {/* Code Dialog for Weather App */}
       <Dialog open={isCodeDialogOpen} onOpenChange={setIsCodeDialogOpen}>
         <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
           <DialogHeader>
-            <DialogTitle className="text-2xl font-bold text-primary">Weather App - Python Code</DialogTitle>
-            <DialogDescription>Complete source code for the Weather App</DialogDescription>
+            <DialogTitle className="text-2xl font-bold text-primary">{project.title} - Code</DialogTitle>
+            <DialogDescription>Source code preview</DialogDescription>
           </DialogHeader>
           <div className="max-h-[60vh] overflow-y-auto">
             <pre className="bg-gray-900 text-green-400 p-4 rounded-lg text-sm overflow-x-auto">

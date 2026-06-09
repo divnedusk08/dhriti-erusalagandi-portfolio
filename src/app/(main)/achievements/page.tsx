@@ -19,16 +19,6 @@ interface Achievement {
 
 const achievementsData: Achievement[] = [
   {
-    id: "8",
-    title: "NJHS Officer",
-    issuer: "fsms.njhs@leanderisd.org",
-    date: "May 21, 2025",
-    description: "As an NJHS Officer, I take pride in leading with integrity, responsibility, and a commitment to service. I help organize events, support fellow members, and represent our chapter’s core values of scholarship, leadership, service, character, and citizenship. This role allows me to grow as a leader while making a positive impact on my school and community.",
-    icon: Star,
-    category: "Recognition",
-    certificateUrl: "https://www.canva.com/design/DAGoyRvEA3Y/B8cbHCnuWCgMTO_-QkcPdQ/view?utm_content=DAGoyRvEA3Y&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h3242b9cc6a",
-  },
-  {
     id: "6",
     title: "Entrepreneur of the Year",
     issuer: "Lisa Hood",
@@ -75,7 +65,7 @@ export default function AchievementsSection() {
           <Card 
             key={achievement.id} 
             className="flex flex-col overflow-hidden shadow-lg transition-all duration-300 ease-out hover:shadow-2xl hover:-translate-y-1 hover:border-accent bg-card/80 backdrop-blur-sm stagger-item"
-            style={{ animationDelay: `${index * 100}ms` }} // Stagger animation
+            style={{ animationDelay: `${index * 100}ms` }}
           >
             <CardHeader className="bg-muted/30 p-6">
               <div className="flex items-start gap-4">
@@ -105,27 +95,14 @@ export default function AchievementsSection() {
                 <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
                     {achievement.category}
                 </span>
-                {(() => {
-                  const url = achievement.certificateUrl;
-                  if (url && url.trim() !== "" && url !== "#") {
-                    return (
-                      <Button asChild variant="outline" size="sm">
-                        <a href={url} target="_blank" rel="noopener noreferrer">
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          View Certificate
-                        </a>
-                      </Button>
-                    );
-                  } else if (typeof url === 'string') {
-                    return (
-                       <Button variant="outline" size="sm" disabled title="Certificate URL not yet provided or is invalid">
-                          <ExternalLink className="mr-2 h-4 w-4" />
-                          View Certificate
-                        </Button>
-                    );
-                  }
-                  return null;
-                })()}
+                {achievement.certificateUrl && (
+                  <Button asChild variant="outline" size="sm">
+                    <a href={achievement.certificateUrl} target="_blank" rel="noopener noreferrer">
+                      <ExternalLink className="mr-2 h-4 w-4" />
+                      View Certificate
+                    </a>
+                  </Button>
+                )}
             </CardFooter>
           </Card>
         ))}
