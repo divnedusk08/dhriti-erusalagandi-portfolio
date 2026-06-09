@@ -7,7 +7,7 @@ export function Footer() {
           &copy; 2026 Dhriti E&apos;s Portfolio. All rights reserved.
         </p>
         <p className="text-center text-sm text-muted-foreground">
-          Let’s build something bold together.
+          Innovating with purpose, leading with passion.
         </p>
       </div>
     </footer>
