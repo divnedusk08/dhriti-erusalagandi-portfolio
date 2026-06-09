@@ -21,6 +21,21 @@ const projectsData: Project[] = [
     liveLink: "https://hourtrackr.netlify.app/",
   },
   {
+    id: "4",
+    title: "Computer Science Portfolio",
+    shortDescription: "A comprehensive digital showcase of my computer science journey, projects, and technical growth.",
+    longDescription: "This digital portfolio serves as a central hub for my computer science achievements and projects. It highlights my learning path, showcasing various applications, coding challenges, and innovative solutions I've developed over time. It provides an interactive way for viewers to explore my technical skills and creative problem-solving approach.",
+    purpose: "To present a professional and visually engaging overview of my computer science projects and academic progress.",
+    functionality: [
+      "Interactive navigation through project categories",
+      "Detailed descriptions of coding projects and technical skills",
+      "Visual demonstrations of software applications",
+      "Reflection on learning experiences and future goals",
+    ],
+    techStack: ["Canva", "Digital Design", "Portfolio Management"],
+    liveLink: "https://www.canva.com/design/DAHKtflpDNY/OT6HAtIb-I98RGeiHjeotQ/view?utm_content=DAHKtflpDNY&utm_campaign=designshare&utm_medium=link2&utm_source=uniquelinks&utlId=h790532454b",
+  },
+  {
     id: "2",
     title: "Weather App",
     shortDescription: "A desktop weather application built with PyQt5 that provides real-time weather information with beautiful emoji representations and temperature displays.",
