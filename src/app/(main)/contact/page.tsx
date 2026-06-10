@@ -156,70 +156,68 @@ export default function ContactSection() {
         </div>
 
         <div className="h-full">
-          <InteractiveWrapper>
-            <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
-              <CardHeader>
-                <CardTitle className="text-2xl font-semibold text-primary">Send Message</CardTitle>
-              </CardHeader>
-              <CardContent>
-                <Form {...form}>
-                  <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                    <FormField
-                      control={form.control}
-                      name="name"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center text-muted-foreground"><User className="mr-2 h-4 w-4" />Your Name</FormLabel>
-                          <FormControl>
-                            <Input placeholder="Type your full name..." {...field} className="bg-background/70" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="email"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center text-muted-foreground"><Mail className="mr-2 h-4 w-4" />Your Email</FormLabel>
-                          <FormControl>
-                            <Input type="email" placeholder="your.email@example.com" {...field} className="bg-background/70" />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <FormField
-                      control={form.control}
-                      name="message"
-                      render={({ field }) => (
-                        <FormItem>
-                          <FormLabel className="flex items-center text-muted-foreground"><MessageSquare className="mr-2 h-4 w-4" />Your Message</FormLabel>
-                          <FormControl>
-                            <Textarea
-                              placeholder="Your message here..."
-                              className="min-h-[150px] bg-background/70"
-                              {...field}
-                            />
-                          </FormControl>
-                          <FormMessage />
-                        </FormItem>
-                      )}
-                    />
-                    <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
-                      {isSubmitting ? (
-                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      ) : (
-                        <Send className="mr-2 h-4 w-4" />
-                      )}
-                      Send Message
-                    </Button>
-                  </form>
-                </Form>
-              </CardContent>
-            </Card>
-          </InteractiveWrapper>
+          <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
+            <CardHeader>
+              <CardTitle className="text-2xl font-semibold text-primary">Send Message</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><User className="mr-2 h-4 w-4" />Your Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Type your full name..." {...field} className="bg-background/70" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><Mail className="mr-2 h-4 w-4" />Your Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="your.email@example.com" {...field} className="bg-background/70" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><MessageSquare className="mr-2 h-4 w-4" />Your Message</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Your message here..."
+                            className="min-h-[150px] bg-background/70"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
+                    {isSubmitting ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="mr-2 h-4 w-4" />
+                    )}
+                    Send Message
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
         </div>
       </div>
     </div>
