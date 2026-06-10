@@ -1,7 +1,6 @@
-
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContactFormSchema, type ContactFormValues } from "@/lib/schemas";
@@ -17,6 +16,44 @@ import { cn } from "@/lib/utils";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useFirestore } from "@/firebase";
 import { submitContactForm } from "@/lib/actions";
+
+function InteractiveWrapper({ children }: { children: React.ReactNode }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    const rotateX = (y - height / 2) / (height / 2) * -5;
+    const rotateY = (x - width / 2) / (width / 2) * 5;
+
+    setStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.01, 1.01, 1.01)`,
+      transition: "transform 0.1s ease-out",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setStyle({
+      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      transition: "transform 0.4s ease-in-out",
+    });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={style}
+      className="h-full transition-transform duration-300"
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -37,7 +74,6 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      // 1. Send via Server Action (Gmail)
       const formData = new FormData();
       formData.append("name", values.name);
       formData.append("email", values.email);
@@ -59,15 +95,12 @@ export default function ContactSection() {
         });
       }
 
-      // 2. Backup to Firestore (Database)
       if (db) {
         const contactsRef = collection(db, "contacts");
         addDoc(contactsRef, {
           ...values,
           createdAt: serverTimestamp(),
-        }).catch(() => {
-          // Silent backup catch
-        });
+        }).catch(() => {});
       }
     } catch (error) {
       toast({
@@ -102,85 +135,89 @@ export default function ContactSection() {
           { "is-visible": isVisible }
         )}
       >
-        <Card className="shadow-xl bg-card/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-primary interactive-text-hover">My Info</CardTitle>
-          </CardHeader>
-          <CardContent className="space-y-6">
-            {myInfo.map((item, index) => (
-              <div key={index} className="flex items-start space-x-4">
-                <item.icon className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                <div>
-                  <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
-                  <p className="text-lg text-foreground interactive-text-hover">{item.value}</p>
+        <InteractiveWrapper>
+          <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
+            <CardHeader>
+              <CardTitle className="text-2xl font-semibold text-primary">My Info</CardTitle>
+            </CardHeader>
+            <CardContent className="space-y-6">
+              {myInfo.map((item, index) => (
+                <div key={index} className="flex items-start space-x-4">
+                  <item.icon className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
+                  <div>
+                    <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
+                    <p className="text-lg text-foreground">{item.value}</p>
+                  </div>
                 </div>
-              </div>
-            ))}
-          </CardContent>
-        </Card>
+              ))}
+            </CardContent>
+          </Card>
+        </InteractiveWrapper>
 
-        <Card className="shadow-xl bg-card/80 backdrop-blur-sm">
-          <CardHeader>
-            <CardTitle className="text-2xl font-semibold text-primary interactive-text-hover">Send Message</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <Form {...form}>
-              <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="name"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center text-muted-foreground"><User className="mr-2 h-4 w-4" />Your Name</FormLabel>
-                      <FormControl>
-                        <Input placeholder="Type your full name..." {...field} className="bg-background/70" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="email"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center text-muted-foreground"><Mail className="mr-2 h-4 w-4" />Your Email</FormLabel>
-                      <FormControl>
-                        <Input type="email" placeholder="your.email@example.com" {...field} className="bg-background/70" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="message"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel className="flex items-center text-muted-foreground"><MessageSquare className="mr-2 h-4 w-4" />Your Message</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Your message here..."
-                          className="min-h-[150px] bg-background/70"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
-                  {isSubmitting ? (
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  ) : (
-                    <Send className="mr-2 h-4 w-4" />
-                  )}
-                  Send Message
-                </Button>
-              </form>
-            </Form>
-          </CardContent>
-        </Card>
+        <InteractiveWrapper>
+          <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
+            <CardHeader>
+              <CardTitle className="text-2xl font-semibold text-primary">Send Message</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <Form {...form}>
+                <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+                  <FormField
+                    control={form.control}
+                    name="name"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><User className="mr-2 h-4 w-4" />Your Name</FormLabel>
+                        <FormControl>
+                          <Input placeholder="Type your full name..." {...field} className="bg-background/70" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><Mail className="mr-2 h-4 w-4" />Your Email</FormLabel>
+                        <FormControl>
+                          <Input type="email" placeholder="your.email@example.com" {...field} className="bg-background/70" />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="message"
+                    render={({ field }) => (
+                      <FormItem>
+                        <FormLabel className="flex items-center text-muted-foreground"><MessageSquare className="mr-2 h-4 w-4" />Your Message</FormLabel>
+                        <FormControl>
+                          <Textarea
+                            placeholder="Your message here..."
+                            className="min-h-[150px] bg-background/70"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <Button type="submit" disabled={isSubmitting} className="w-full bg-accent text-accent-foreground hover:bg-accent/90 md:w-auto">
+                    {isSubmitting ? (
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    ) : (
+                      <Send className="mr-2 h-4 w-4" />
+                    )}
+                    Send Message
+                  </Button>
+                </form>
+              </Form>
+            </CardContent>
+          </Card>
+        </InteractiveWrapper>
       </div>
     </div>
   );
