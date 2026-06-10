@@ -44,7 +44,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
     const rotateY = (x - width / 2) / (width / 2) * 8;
 
     setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
       transition: "transform 0.1s ease-out",
     });
   };
@@ -64,7 +64,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
       style={style}
-      className="h-full transition-transform duration-300"
+      className="h-full"
     >
       <Card className="group flex h-full flex-col overflow-hidden shadow-lg border-accent/20 bg-card/80 backdrop-blur-sm rounded-3xl">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>

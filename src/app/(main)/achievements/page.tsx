@@ -54,7 +54,7 @@ function AchievementCard({ achievement, index }: { achievement: Achievement; ind
     const rotateY = (x - width / 2) / (width / 2) * 8;
 
     setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
       transition: "transform 0.1s ease-out",
     });
   };
@@ -68,54 +68,58 @@ function AchievementCard({ achievement, index }: { achievement: Achievement; ind
 
   return (
     <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={style}
       className="stagger-item h-full"
+      style={{ animationDelay: `${index * 100}ms` }}
     >
-      <Card 
-        className="flex flex-col h-full overflow-hidden shadow-lg border-accent/20 bg-card/80 backdrop-blur-sm rounded-3xl"
-        style={{ animationDelay: `${index * 100}ms` }}
+      <div
+        ref={cardRef}
+        onMouseMove={handleMouseMove}
+        onMouseLeave={handleMouseLeave}
+        style={style}
+        className="h-full"
       >
-        <CardHeader className="bg-muted/30 p-6">
-          <div className="flex items-start gap-4">
-            <span className="rounded-full bg-accent p-3 text-accent-foreground">
-              <achievement.icon className="h-6 w-6" />
-            </span>
-            <div>
-              <CardTitle className="text-xl font-semibold text-primary">
-                {achievement.title}
-              </CardTitle>
-              {achievement.issuer && (
-                <CardDescription className="text-sm text-muted-foreground">
-                  {achievement.issuer}
-                </CardDescription>
-              )}
+        <Card 
+          className="flex flex-col h-full overflow-hidden shadow-lg border-accent/20 bg-card/80 backdrop-blur-sm rounded-3xl"
+        >
+          <CardHeader className="bg-muted/30 p-6">
+            <div className="flex items-start gap-4">
+              <span className="rounded-full bg-accent p-3 text-accent-foreground">
+                <achievement.icon className="h-6 w-6" />
+              </span>
+              <div>
+                <CardTitle className="text-xl font-semibold text-primary">
+                  {achievement.title}
+                </CardTitle>
+                {achievement.issuer && (
+                  <CardDescription className="text-sm text-muted-foreground">
+                    {achievement.issuer}
+                  </CardDescription>
+                )}
+              </div>
             </div>
-          </div>
-        </CardHeader>
-        <CardContent className="flex-grow p-6">
-          <p className="mb-4 text-foreground/90">{achievement.description}</p>
-          <div className="flex items-center text-sm text-muted-foreground">
-            <CalendarDays className="mr-2 h-4 w-4" />
-            <span>{achievement.date}</span>
-          </div>
-        </CardContent>
-        <CardFooter className="border-t bg-card p-4 flex justify-between items-center">
-            <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                {achievement.category}
-            </span>
-            {achievement.certificateUrl && (
-              <Button asChild variant="outline" size="sm">
-                <a href={achievement.certificateUrl} target="_blank" rel="noopener noreferrer">
-                  <ExternalLink className="mr-2 h-4 w-4" />
-                  View Certificate
-                </a>
-              </Button>
-            )}
-        </CardFooter>
-      </Card>
+          </CardHeader>
+          <CardContent className="flex-grow p-6">
+            <p className="mb-4 text-foreground/90">{achievement.description}</p>
+            <div className="flex items-center text-sm text-muted-foreground">
+              <CalendarDays className="mr-2 h-4 w-4" />
+              <span>{achievement.date}</span>
+            </div>
+          </CardContent>
+          <CardFooter className="border-t bg-card p-4 flex justify-between items-center">
+              <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
+                  {achievement.category}
+              </span>
+              {achievement.certificateUrl && (
+                <Button asChild variant="outline" size="sm">
+                  <a href={achievement.certificateUrl} target="_blank" rel="noopener noreferrer">
+                    <ExternalLink className="mr-2 h-4 w-4" />
+                    View Certificate
+                  </a>
+                </Button>
+              )}
+          </CardFooter>
+        </Card>
+      </div>
     </div>
   );
 }
