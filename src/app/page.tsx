@@ -1,8 +1,7 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Code, Brain, Lightbulb } from "lucide-react";
+import { ChevronDown, Code, Brain, Lightbulb, Terminal, Cpu, Microscope, Sparkles } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Preloader } from "@/components/layout/preloader";
@@ -11,6 +10,44 @@ import AchievementsSection from "@/app/(main)/achievements/page";
 import ProjectsSection from "@/app/(main)/projects/page";
 import ContactSection from "@/app/(main)/contact/page";
 import { FloatingPaths } from "@/components/ui/background-paths";
+
+function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
+  const cardRef = useRef<HTMLDivElement>(null);
+  const [style, setStyle] = useState<React.CSSProperties>({});
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!cardRef.current) return;
+    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
+    const x = e.clientX - left;
+    const y = e.clientY - top;
+    const rotateX = (y - height / 2) / (height / 2) * -10;
+    const rotateY = (x - width / 2) / (width / 2) * 10;
+
+    setStyle({
+      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`,
+      transition: "transform 0.1s ease-out",
+    });
+  };
+
+  const handleMouseLeave = () => {
+    setStyle({
+      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
+      transition: "transform 0.4s ease-in-out",
+    });
+  };
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={style}
+      className={cn("h-full", className)}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function HomePage() {
   const [isLoading, setIsLoading] = useState(true);
@@ -22,8 +59,6 @@ export default function HomePage() {
   const [typedTitle, setTypedTitle] = useState("");
   const [isCursorInDOM, setIsCursorInDOM] = useState(true);
   const [cursorAnimationClass, setCursorAnimationClass] = useState('animate-blink');
-
-  const heroSectionRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     if (isLoading) return;
@@ -61,7 +96,7 @@ export default function HomePage() {
 
   const areasOfInterest = [
     {
-      icon: Code,
+      icon: Microscope,
       title: "Biomedical Tech",
       description: "Exploring the intersection of engineering and healthcare to improve lives.",
     },
@@ -77,12 +112,19 @@ export default function HomePage() {
     },
   ];
 
+  const skills = [
+    { name: "Python", icon: Terminal, category: "Technical" },
+    { name: "Web Development", icon: Code, category: "Technical" },
+    { name: "Biomedical Design", icon: Cpu, category: "Engineering" },
+    { name: "Leadership", icon: Sparkles, category: "Professional" },
+  ];
+
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
       <main className="flex-1 page-transition">
         {/* Hero Section */}
-        <section id="about" ref={heroSectionRef} className="relative overflow-hidden flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-4 pt-16 pb-8 md:pt-24 md:pb-12 bg-background">
+        <section id="about" className="relative overflow-hidden flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-4 pt-16 pb-8 md:pt-24 md:pb-12 bg-background">
           <div className="absolute inset-0">
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
@@ -138,17 +180,40 @@ export default function HomePage() {
               </div>
             </section>
 
-            <section>
+            <section className="mb-16">
               <h3 className="mb-6 text-xl font-semibold text-primary interactive-text-hover">
                 Areas of Interest
               </h3>
               <div className="grid gap-8 md:grid-cols-3">
                 {areasOfInterest.map((interest, index) => (
-                  <div key={index} className="group flex flex-col items-center text-center p-6 rounded-xl border border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] hover:scale-105">
-                    <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
-                    <h4 className="mb-1 text-lg font-medium text-foreground interactive-text-hover">{interest.title}</h4>
-                    <p className="text-sm text-muted-foreground">{interest.description}</p>
-                  </div>
+                  <TiltCard key={index}>
+                    <div className="group flex flex-col items-center text-center p-6 rounded-xl border border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] h-full">
+                      <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
+                      <h4 className="mb-1 text-lg font-medium text-foreground interactive-text-hover">{interest.title}</h4>
+                      <p className="text-sm text-muted-foreground">{interest.description}</p>
+                    </div>
+                  </TiltCard>
+                ))}
+              </div>
+            </section>
+
+            <section id="skills">
+              <h3 className="mb-6 text-xl font-semibold text-primary interactive-text-hover">
+                My Skills
+              </h3>
+              <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
+                {skills.map((skill, index) => (
+                  <TiltCard key={index}>
+                    <div className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/40 transition-all duration-300 group h-full">
+                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
+                        <skill.icon className="h-5 w-5" />
+                      </div>
+                      <div>
+                        <p className="font-medium text-foreground">{skill.name}</p>
+                        <p className="text-xs text-muted-foreground">{skill.category}</p>
+                      </div>
+                    </div>
+                  </TiltCard>
                 ))}
               </div>
             </section>
