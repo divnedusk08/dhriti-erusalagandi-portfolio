@@ -4,7 +4,7 @@ import * as React from "react";
 import { useState, useRef } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Award, Briefcase, CalendarDays, ExternalLink, Lightbulb, UserCheck } from "lucide-react";
+import { Award, Briefcase, CalendarDays, ExternalLink, Lightbulb, UserCheck, HeartPulse } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
 
@@ -38,6 +38,15 @@ const achievementsData: Achievement[] = [
     description: "Serving as an officer for the National Junior Honor Society, where I lead service initiatives and represent the student body through scholarship, leadership, and character development.",
     icon: UserCheck,
     category: "Leadership",
+  },
+  {
+    id: "10",
+    title: "CPR Certification",
+    issuer: "National CPR Foundation",
+    date: "2024",
+    description: "I'm CPR certified through the National CPR Foundation, demonstrating my commitment to safety and preparedness in emergency situations.",
+    icon: HeartPulse,
+    category: "Certification",
   },
 ];
 
