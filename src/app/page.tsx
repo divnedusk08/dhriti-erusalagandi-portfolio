@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import { ChevronDown, Code, Brain, Lightbulb, Terminal, Cpu, Microscope, Sparkles } from "lucide-react";
+import { ChevronDown, Brain, Lightbulb, Microscope } from "lucide-react";
 import { Header } from "@/components/layout/header";
 import { Footer } from "@/components/layout/footer";
 import { Preloader } from "@/components/layout/preloader";
@@ -112,13 +112,6 @@ export default function HomePage() {
     },
   ];
 
-  const skills = [
-    { name: "Python", icon: Terminal, category: "Technical" },
-    { name: "Web Development", icon: Code, category: "Technical" },
-    { name: "Biomedical Design", icon: Cpu, category: "Engineering" },
-    { name: "Leadership", icon: Sparkles, category: "Professional" },
-  ];
-
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
@@ -191,27 +184,6 @@ export default function HomePage() {
                       <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
                       <h4 className="mb-1 text-lg font-medium text-foreground interactive-text-hover">{interest.title}</h4>
                       <p className="text-sm text-muted-foreground">{interest.description}</p>
-                    </div>
-                  </TiltCard>
-                ))}
-              </div>
-            </section>
-
-            <section id="skills">
-              <h3 className="mb-6 text-xl font-semibold text-primary interactive-text-hover">
-                My Skills
-              </h3>
-              <div className="grid gap-4 grid-cols-2 md:grid-cols-4">
-                {skills.map((skill, index) => (
-                  <TiltCard key={index}>
-                    <div className="flex items-center gap-3 p-4 rounded-xl border border-border bg-card/50 backdrop-blur-sm hover:border-primary/40 transition-all duration-300 group h-full">
-                      <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-colors duration-300">
-                        <skill.icon className="h-5 w-5" />
-                      </div>
-                      <div>
-                        <p className="font-medium text-foreground">{skill.name}</p>
-                        <p className="text-xs text-muted-foreground">{skill.category}</p>
-                      </div>
                     </div>
                   </TiltCard>
                 ))}

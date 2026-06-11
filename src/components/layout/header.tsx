@@ -4,13 +4,12 @@ import Link from "next/link";
 import { Logo } from "@/components/icons/logo";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
-import { Menu, User, Award, Briefcase, Mail, Sparkles } from "lucide-react";
+import { Menu, User, Award, Briefcase, Mail } from "lucide-react";
 import { cn } from "@/lib/utils";
 import React, { useState, useEffect } from "react";
 
 const navItems = [
   { href: "/#about", label: "About", icon: User, sectionId: "about" },
-  { href: "/#skills", label: "Skills", icon: Sparkles, sectionId: "skills" },
   { href: "/#achievements", label: "Achievements", icon: Award, sectionId: "achievements" },
   { href: "/#projects", label: "Projects", icon: Briefcase, sectionId: "projects" },
   { href: "/#contact", label: "Contact", icon: Mail, sectionId: "contact" },
