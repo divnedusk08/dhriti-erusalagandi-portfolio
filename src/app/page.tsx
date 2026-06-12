@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -119,26 +120,38 @@ export default function HomePage() {
       <main className="flex-1 page-transition">
         {/* Hero Section */}
         <section id="about" className="relative overflow-hidden flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-4 pt-16 pb-8 md:pt-24 md:pb-12 bg-background">
-          <div className="absolute inset-0">
+          <div className={cn(
+            "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+            typedTitle.length > 0 ? "opacity-100" : "opacity-0"
+          )}>
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
           </div>
           <div className="relative z-10 flex flex-col items-center justify-center">
-            <div className="mb-6 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm">
+            <div className={cn(
+              "mb-6 inline-flex items-center gap-1.5 rounded-full border border-primary/20 bg-primary/5 px-4 py-1.5 text-sm font-medium text-primary backdrop-blur-sm transition-all duration-700",
+              typedTitle.length > 0 ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
               <span>Student</span>
               <span className="text-muted-foreground/50">•</span>
               <span>Leader</span>
               <span className="text-muted-foreground/50">•</span>
               <span>Innovator</span>
             </div>
-            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl pb-2">
+            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl pb-2 min-h-[1.2em]">
               {typedTitle}
               {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground`}>|</span>}
             </h1>
-            <p className="mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed">
+            <p className={cn(
+              "mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-300",
+              typedTitle.length >= fullTitle.length ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
               Aspiring Biomedical Engineer and Entrepreneur | Rouse High School | Class of 2030
             </p>
-            <div className="mt-10 flex flex-row gap-4 items-center justify-center">
+            <div className={cn(
+              "mt-10 flex flex-row gap-4 items-center justify-center transition-all duration-1000 delay-500",
+              typedTitle.length >= fullTitle.length ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+            )}>
               <a
                 href="https://canva.link/33nqckkbyiwxj2v"
                 target="_blank"
@@ -154,7 +167,10 @@ export default function HomePage() {
                 Get in Touch
               </a>
             </div>
-            <div className="mt-12 flex flex-col items-center">
+            <div className={cn(
+              "mt-12 flex flex-col items-center transition-opacity duration-1000 delay-700",
+              typedTitle.length >= fullTitle.length ? "opacity-100" : "opacity-0"
+            )}>
               <p className="text-lg text-muted-foreground animate-subtle-blink">Scroll down to explore</p>
               <ChevronDown className="h-10 w-10 text-muted-foreground mt-1 animate-bobbing" />
             </div>
