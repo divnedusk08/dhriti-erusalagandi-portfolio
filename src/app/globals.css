@@ -190,27 +190,29 @@ body {
 @keyframes fadeInUp {
   from {
     opacity: 0;
-    transform: translateY(30px);
+    transform: translateY(40px) scale(0.98);
   }
   to {
     opacity: 1;
-    transform: translateY(0);
+    transform: translateY(0) scale(1);
   }
 }
 
 .fade-in-up {
   opacity: 0;
+  will-change: transform, opacity;
 }
 
 .fade-in-up.is-visible {
-  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }
 
 .stagger-fade-in-container .stagger-item {
   opacity: 0;
-  transform: translateY(30px);
+  transform: translateY(40px) scale(0.98);
+  will-change: transform, opacity;
 }
 
 .stagger-fade-in-container.is-visible .stagger-item {
-  animation: fadeInUp 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  animation: fadeInUp 0.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
 }

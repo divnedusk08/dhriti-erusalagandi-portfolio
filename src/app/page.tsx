@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -12,6 +11,7 @@ import ProjectsSection from "@/app/(main)/projects/page";
 import ContactSection from "@/app/(main)/contact/page";
 import VolunteerSection from "@/app/(main)/volunteer/page";
 import { FloatingPaths } from "@/components/ui/background-paths";
+import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
   const cardRef = useRef<HTMLDivElement>(null);
@@ -61,6 +61,9 @@ export default function HomePage() {
   const [typedTitle, setTypedTitle] = useState("");
   const [isCursorInDOM, setIsCursorInDOM] = useState(true);
   const [cursorAnimationClass, setCursorAnimationClass] = useState('animate-blink');
+
+  const [whoIAmRef, isWhoIAmVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
+  const [interestsRef, isInterestsVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   useEffect(() => {
     if (isLoading) return;
@@ -117,7 +120,7 @@ export default function HomePage() {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
-      <main className="flex-1 page-transition">
+      <main className="flex-1">
         {/* Hero Section */}
         <section id="about" className="relative overflow-hidden flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-4 pt-16 pb-8 md:pt-24 md:pb-12 bg-background">
           <div className={cn(
@@ -181,7 +184,14 @@ export default function HomePage() {
         <section className="py-12 md:py-16 bg-primary/5 dark:bg-primary/5 border-y border-border">
           <div className="container mx-auto max-w-5xl px-4">
             <h2 className="text-center text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-10">About Me</h2>
-            <section className="mb-10">
+            
+            <section 
+              ref={whoIAmRef}
+              className={cn(
+                "mb-10 fade-in-up",
+                { "is-visible": isWhoIAmVisible }
+              )}
+            >
               <h3 className="mb-3 text-xl font-semibold text-primary">
                 Who I Am
               </h3>
@@ -190,19 +200,31 @@ export default function HomePage() {
               </div>
             </section>
 
-            <section className="mb-16">
+            <section 
+              ref={interestsRef}
+              className={cn(
+                "mb-16 stagger-fade-in-container",
+                { "is-visible": isInterestsVisible }
+              )}
+            >
               <h3 className="mb-6 text-xl font-semibold text-primary">
                 Areas of Interest
               </h3>
               <div className="grid gap-8 md:grid-cols-3">
                 {areasOfInterest.map((interest, index) => (
-                  <TiltCard key={index}>
-                    <div className="group flex flex-col items-center text-center p-6 rounded-xl border border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] h-full">
-                      <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
-                      <h4 className="mb-1 text-lg font-medium text-foreground">{interest.title}</h4>
-                      <p className="text-sm text-muted-foreground">{interest.description}</p>
-                    </div>
-                  </TiltCard>
+                  <div 
+                    key={index} 
+                    className="stagger-item"
+                    style={{ animationDelay: `${index * 150}ms` }}
+                  >
+                    <TiltCard>
+                      <div className="group flex flex-col items-center text-center p-6 rounded-xl border border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] h-full">
+                        <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
+                        <h4 className="mb-1 text-lg font-medium text-foreground">{interest.title}</h4>
+                        <p className="text-sm text-muted-foreground">{interest.description}</p>
+                      </div>
+                    </TiltCard>
+                  </div>
                 ))}
               </div>
             </section>
