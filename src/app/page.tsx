@@ -9,6 +9,7 @@ import { cn } from "@/lib/utils";
 import AchievementsSection from "@/app/(main)/achievements/page";
 import ProjectsSection from "@/app/(main)/projects/page";
 import ContactSection from "@/app/(main)/contact/page";
+import VolunteerSection from "@/app/(main)/volunteer/page";
 import { FloatingPaths } from "@/components/ui/background-paths";
 
 function TiltCard({ children, className }: { children: React.ReactNode; className?: string }) {
@@ -196,7 +197,11 @@ export default function HomePage() {
           <AchievementsSection />
         </section>
 
-        <section id="projects" className="py-12 md:py-16 bg-primary/5 dark:bg-primary/5">
+        <section id="volunteer" className="py-12 md:py-16 bg-primary/5 dark:bg-primary/5 border-y border-border">
+          <VolunteerSection />
+        </section>
+
+        <section id="projects" className="py-12 md:py-16 bg-background">
           <ProjectsSection />
         </section>
 
