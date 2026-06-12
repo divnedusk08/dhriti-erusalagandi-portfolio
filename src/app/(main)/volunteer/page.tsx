@@ -22,7 +22,7 @@ const volunteerData: Volunteer[] = [
     organization: "Aspen Hospice Palliative Care",
     role: "Patient Companion & Support Volunteer",
     date: "2024 - Present",
-    description: "Dedicated to providing compassionate companionship and emotional support to patients and their families. Assisting with non-medical needs and ensuring a comforting environment for those in palliative care.",
+    description: "Dedicated to providing compassionate support to patients and their families. I write 'sunshine cards' to elderly residents to bring joy and companionship, ensuring a comforting environment for those in palliative care.",
     icon: Heart,
   },
   {
