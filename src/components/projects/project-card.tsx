@@ -177,7 +177,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
         </Dialog>
 
         <CardContent className={`flex-grow p-5 ${!project.imageUrl ? 'pt-5' : ''}`}>
-          <CardTitle className="mb-2 text-xl font-semibold text-primary group-hover:text-accent">
+          <CardTitle className="mb-2 text-xl font-semibold text-primary">
             {project.title}
           </CardTitle>
           <CardDescription className="text-sm text-muted-foreground">

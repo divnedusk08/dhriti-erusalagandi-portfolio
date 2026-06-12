@@ -122,7 +122,7 @@ export default function ContactSection() {
   return (
     <div className="container mx-auto max-w-5xl py-8 px-4 md:py-12">
       <header className="mb-10 text-center">
-        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl interactive-text-hover">
+        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
           <span className="text-accent">Get in</span> <span className="text-accent">Touch</span>
         </h2>
       </header>

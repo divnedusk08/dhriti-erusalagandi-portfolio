@@ -1,4 +1,3 @@
-
 import type { SVGProps } from 'react';
 
 export function Logo(props: SVGProps<SVGSVGElement>) {
@@ -9,7 +8,7 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       width="280"
       height="28"
       aria-label="Dhriti Erusalagandi Logo"
-      className="h-6 w-auto transition-transform duration-300 hover:scale-105"
+      className="h-6 w-auto transition-transform duration-300"
       {...props}
     >
       <text

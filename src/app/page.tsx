@@ -130,11 +130,11 @@ export default function HomePage() {
               <span className="text-muted-foreground/50">•</span>
               <span>Innovator</span>
             </div>
-            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl interactive-text-hover text-glint-hover pb-2">
+            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl pb-2">
               {typedTitle}
               {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground`}>|</span>}
             </h1>
-            <p className="mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground interactive-text-hover leading-relaxed">
+            <p className="mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed">
               Aspiring Biomedical Engineer and Entrepreneur | Rouse High School | Class of 2030
             </p>
             <div className="mt-10 flex flex-row gap-4 items-center justify-center">
@@ -163,9 +163,9 @@ export default function HomePage() {
         {/* About Me Details Section */}
         <section className="py-12 md:py-16 bg-primary/5 dark:bg-primary/5 border-y border-border">
           <div className="container mx-auto max-w-5xl px-4">
-            <h2 className="text-center text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-10 interactive-text-hover">About Me</h2>
+            <h2 className="text-center text-3xl font-bold bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent mb-10">About Me</h2>
             <section className="mb-10">
-              <h3 className="mb-3 text-xl font-semibold text-primary interactive-text-hover">
+              <h3 className="mb-3 text-xl font-semibold text-primary">
                 Who I Am
               </h3>
               <div className="prose prose-xl max-w-none text-foreground/90 dark:prose-invert">
@@ -174,7 +174,7 @@ export default function HomePage() {
             </section>
 
             <section className="mb-16">
-              <h3 className="mb-6 text-xl font-semibold text-primary interactive-text-hover">
+              <h3 className="mb-6 text-xl font-semibold text-primary">
                 Areas of Interest
               </h3>
               <div className="grid gap-8 md:grid-cols-3">
@@ -182,7 +182,7 @@ export default function HomePage() {
                   <TiltCard key={index}>
                     <div className="group flex flex-col items-center text-center p-6 rounded-xl border border-border bg-card/30 backdrop-blur-sm transition-all duration-300 hover:border-primary/50 hover:shadow-[0_0_25px_rgba(99,102,241,0.15)] h-full">
                       <interest.icon className="h-12 w-12 mb-4 text-primary transition-colors duration-300 group-hover:text-secondary" />
-                      <h4 className="mb-1 text-lg font-medium text-foreground interactive-text-hover">{interest.title}</h4>
+                      <h4 className="mb-1 text-lg font-medium text-foreground">{interest.title}</h4>
                       <p className="text-sm text-muted-foreground">{interest.description}</p>
                     </div>
                   </TiltCard>

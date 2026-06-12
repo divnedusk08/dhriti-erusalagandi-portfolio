@@ -187,45 +187,6 @@ body {
   color: #f0b90b;
 }
 
-.interactive-text-hover {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-  transition: transform 0.3s ease-out;
-}
-
-.interactive-text-hover:hover {
-  transform: scale(1.03);
-}
-
-.text-glint-hover {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
-
-.text-glint-hover::after {
-  content: '';
-  position: absolute;
-  top: -50%;
-  left: -50%;
-  width: 20px;
-  height: 200%;
-  background: linear-gradient(
-    to right,
-    hsla(0, 0%, 100%, 0) 0%,
-    hsla(0, 0%, 100%, 0.3) 50%,
-    hsla(0, 0%, 100%, 0) 100%
-  );
-  transform: skewX(-25deg) translateX(-250%);
-  transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1);
-  pointer-events: none;
-}
-
-.text-glint-hover:hover::after {
-  transform: skewX(-25deg) translateX(350%);
-}
-
 @keyframes fadeInUp {
   from {
     opacity: 0;
