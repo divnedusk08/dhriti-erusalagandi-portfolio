@@ -43,7 +43,7 @@ const achievementsData: Achievement[] = [
     id: "10",
     title: "CPR Certification",
     issuer: "National CPR Foundation",
-    date: "2024",
+    date: "2026",
     description: "I'm CPR certified through the National CPR Foundation, demonstrating my commitment to safety and preparedness in emergency situations.",
     icon: HeartPulse,
     category: "Certification",
