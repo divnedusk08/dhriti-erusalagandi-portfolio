@@ -1,10 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { useState, useRef } from "react";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Award, Briefcase, CalendarDays, ExternalLink, Lightbulb, UserCheck, HeartPulse } from "lucide-react";
+import { CalendarDays, ExternalLink, Lightbulb, UserCheck, HeartPulse } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
 
@@ -51,85 +48,39 @@ const achievementsData: Achievement[] = [
 ];
 
 function AchievementCard({ achievement, index }: { achievement: Achievement; index: number }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({});
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    const rotateX = (y - height / 2) / (height / 2) * -8;
-    const rotateY = (x - width / 2) / (width / 2) * 8;
-
-    setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
-      transition: "transform 0.1s ease-out",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-      transition: "transform 0.4s ease-in-out",
-    });
-  };
-
   return (
-    <div
-      className="stagger-item h-full"
+    <article
+      className="stagger-item group flex h-full flex-col rounded-xl border border-border bg-background p-6 transition-colors hover:border-foreground/30"
       style={{ animationDelay: `${index * 100}ms` }}
     >
-      <div
-        ref={cardRef}
-        onMouseMove={handleMouseMove}
-        onMouseLeave={handleMouseLeave}
-        style={style}
-        className="h-full"
-      >
-        <Card 
-          className="flex flex-col h-full overflow-hidden shadow-lg border-accent/20 bg-card/80 backdrop-blur-sm rounded-3xl"
-        >
-          <CardHeader className="bg-muted/30 p-6">
-            <div className="flex items-start gap-4">
-              <span className="rounded-full bg-accent p-3 text-accent-foreground">
-                <achievement.icon className="h-6 w-6" />
-              </span>
-              <div>
-                <CardTitle className="text-xl font-semibold text-primary">
-                  {achievement.title}
-                </CardTitle>
-                {achievement.issuer && (
-                  <CardDescription className="text-sm text-muted-foreground">
-                    {achievement.issuer}
-                  </CardDescription>
-                )}
-              </div>
-            </div>
-          </CardHeader>
-          <CardContent className="flex-grow p-6">
-            <p className="mb-4 text-foreground/90">{achievement.description}</p>
-            <div className="flex items-center text-sm text-muted-foreground">
-              <CalendarDays className="mr-2 h-4 w-4" />
-              <span>{achievement.date}</span>
-            </div>
-          </CardContent>
-          <CardFooter className="border-t bg-card p-4 flex justify-between items-center">
-              <span className="inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                  {achievement.category}
-              </span>
-              {achievement.certificateUrl && (
-                <Button asChild variant="outline" size="sm">
-                  <a href={achievement.certificateUrl} target="_blank" rel="noopener noreferrer">
-                    <ExternalLink className="mr-2 h-4 w-4" />
-                    View Certificate
-                  </a>
-                </Button>
-              )}
-          </CardFooter>
-        </Card>
+      <div className="mb-5 flex items-center justify-between">
+        <achievement.icon className="h-6 w-6 text-primary" strokeWidth={1.5} />
+        <span className="eyebrow text-[0.65rem]">{achievement.category}</span>
       </div>
-    </div>
+      <h3 className="text-lg font-medium text-foreground">{achievement.title}</h3>
+      {achievement.issuer && (
+        <p className="mt-1 text-sm text-muted-foreground">{achievement.issuer}</p>
+      )}
+      <p className="mt-4 flex-grow text-sm leading-relaxed text-muted-foreground">
+        {achievement.description}
+      </p>
+      <div className="mt-6 flex items-center justify-between border-t border-border pt-4">
+        <span className="flex items-center text-xs text-muted-foreground">
+          <CalendarDays className="mr-2 h-3.5 w-3.5" />
+          {achievement.date}
+        </span>
+        {achievement.certificateUrl && (
+          <a
+            href={achievement.certificateUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-underline inline-flex items-center text-xs font-medium text-foreground"
+          >
+            Certificate <ExternalLink className="ml-1.5 h-3.5 w-3.5" />
+          </a>
+        )}
+      </div>
+    </article>
   );
 }
 
@@ -137,20 +88,18 @@ export default function AchievementsSection() {
   const [containerRef, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
   return (
-    <div className="container mx-auto max-w-5xl py-8 px-4 md:py-12">
-      <header className="mb-10 text-center">
-        <h2 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl">
-          My Achievements
+    <div className="mx-auto max-w-5xl px-6 md:px-10">
+      <header className="mb-12 max-w-2xl">
+        <p className="eyebrow mb-4">Achievements</p>
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          Awards, certifications &amp; recognition
         </h2>
-        <p className="mt-3 text-lg text-muted-foreground sm:text-xl">
-          A showcase of my awards, certifications, and recognitions.
-        </p>
       </header>
 
       <div
         ref={containerRef}
         className={cn(
-          "grid gap-8 md:grid-cols-2 stagger-fade-in-container",
+          "grid gap-5 md:grid-cols-2 stagger-fade-in-container",
           { "is-visible": isVisible }
         )}
       >

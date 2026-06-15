@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ContactFormSchema, type ContactFormValues } from "@/lib/schemas";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Mail, Send, MessageSquare, User, MapPin } from "lucide-react";
@@ -16,44 +15,6 @@ import { cn } from "@/lib/utils";
 import { collection, addDoc, serverTimestamp } from "firebase/firestore";
 import { useFirestore } from "@/firebase";
 import { submitContactForm } from "@/lib/actions";
-
-function InteractiveWrapper({ children }: { children: React.ReactNode }) {
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({});
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    const rotateX = (y - height / 2) / (height / 2) * -8;
-    const rotateY = (x - width / 2) / (width / 2) * 8;
-
-    setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
-      transition: "transform 0.1s ease-out",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-      transition: "transform 0.4s ease-in-out",
-    });
-  };
-
-  return (
-    <div
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={style}
-      className="h-full"
-    >
-      {children}
-    </div>
-  );
-}
 
 export default function ContactSection() {
   const { toast } = useToast();
@@ -120,47 +81,34 @@ export default function ContactSection() {
   ];
 
   return (
-    <div className="container mx-auto max-w-5xl py-8 px-4 md:py-12">
-      <header className="mb-10 text-center">
-        <h2 className="text-4xl font-bold tracking-tight sm:text-5xl">
-          <span className="text-accent">Get in</span> <span className="text-accent">Touch</span>
+    <div className="mx-auto max-w-5xl px-6 md:px-10">
+      <header className="mb-12 max-w-2xl">
+        <p className="eyebrow mb-4">Contact</p>
+        <h2 className="text-3xl font-semibold tracking-tight text-foreground sm:text-4xl">
+          Get in touch
         </h2>
       </header>
 
       <div
         ref={containerRef}
         className={cn(
-          "grid gap-10 md:grid-cols-2 md:gap-12 fade-in-up",
+          "grid gap-12 md:grid-cols-[1fr_1.4fr] md:gap-16 fade-in-up",
           { "is-visible": isVisible }
         )}
       >
-        <div className="h-full">
-          <InteractiveWrapper>
-            <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
-              <CardHeader>
-                <CardTitle className="text-2xl font-semibold text-primary">My Info</CardTitle>
-              </CardHeader>
-              <CardContent className="space-y-6">
-                {myInfo.map((item, index) => (
-                  <div key={index} className="flex items-start space-x-4">
-                    <item.icon className="h-6 w-6 text-primary mt-1 flex-shrink-0" />
-                    <div>
-                      <p className="text-sm font-medium text-muted-foreground">{item.label}</p>
-                      <p className="text-lg text-foreground">{item.value}</p>
-                    </div>
-                  </div>
-                ))}
-              </CardContent>
-            </Card>
-          </InteractiveWrapper>
+        <div className="space-y-8">
+          {myInfo.map((item, index) => (
+            <div key={index} className="flex items-start gap-4">
+              <item.icon className="mt-1 h-5 w-5 flex-shrink-0 text-primary" strokeWidth={1.5} />
+              <div>
+                <p className="eyebrow mb-1 text-[0.65rem]">{item.label}</p>
+                <p className="text-base text-foreground">{item.value}</p>
+              </div>
+            </div>
+          ))}
         </div>
 
-        <div className="h-full">
-          <Card className="shadow-xl bg-card/80 backdrop-blur-sm rounded-3xl h-full border-accent/20">
-            <CardHeader>
-              <CardTitle className="text-2xl font-semibold text-primary">Send Message</CardTitle>
-            </CardHeader>
-            <CardContent>
+        <div>
               <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                   <FormField
@@ -216,8 +164,6 @@ export default function ContactSection() {
                   </Button>
                 </form>
               </Form>
-            </CardContent>
-          </Card>
         </div>
       </div>
     </div>

@@ -45,17 +45,17 @@ export function Header() {
   };
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="flex h-16 w-full items-center justify-between px-0 sm:px-4">
-        <Link 
-          href="/#about" 
-          className="flex items-center transition-all duration-300 pl-0" 
+    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/80 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+      <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:px-10">
+        <Link
+          href="/#about"
+          className="flex items-center text-foreground transition-opacity hover:opacity-70"
           aria-label="Dhriti Home"
         >
           <Logo />
         </Link>
-        
-        <nav className="hidden md:flex items-center space-x-2 pr-4">
+
+        <nav className="hidden md:flex items-center gap-1">
           {navItems.map((item) => (
             <DesktopNavLink key={item.href} {...item} />
           ))}
@@ -63,14 +63,9 @@ export function Header() {
             href="https://canva.link/33nqckkbyiwxj2v"
             target="_blank"
             rel="noopener noreferrer"
-            className="ml-4"
+            className="ml-3 inline-flex items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
           >
-            <Button 
-              variant="outline" 
-              className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold rounded-xl transition-all duration-300"
-            >
-              Resume
-            </Button>
+            Resume
           </a>
         </nav>
 
@@ -96,14 +91,9 @@ export function Header() {
                   href="https://canva.link/33nqckkbyiwxj2v"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="w-full pt-4"
+                  className="mt-2 inline-flex w-full items-center justify-center rounded-xl bg-primary px-4 py-2.5 text-base font-medium text-primary-foreground transition-colors hover:bg-primary/90"
                 >
-                  <Button 
-                    variant="outline" 
-                    className="w-full border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold rounded-xl transition-all duration-300"
-                  >
-                    Resume
-                  </Button>
+                  Resume
                 </a>
               </div>
             </SheetContent>

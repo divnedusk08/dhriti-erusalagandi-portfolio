@@ -1,19 +1,23 @@
 import type { Metadata } from 'next';
-import { Geist, Lora } from 'next/font/google';
+import { Inter, JetBrains_Mono } from 'next/font/google';
 import './globals.css';
 import { Toaster } from "@/components/ui/toaster";
 import { ThemeProvider } from "@/components/theme-provider";
 import { FirebaseClientProvider } from "@/firebase";
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+// Inter — the closest open web fallback to Apple's San Francisco.
+// The actual San Francisco font is used first on Apple devices via the
+// system font stack defined in globals.css.
+const inter = Inter({
+  variable: '--font-sans',
   subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
 });
 
-const lora = Lora({
-  variable: '--font-lora',
+const jetbrainsMono = JetBrains_Mono({
+  variable: '--font-mono',
   subsets: ['latin'],
-  weight: ['400', '700'],
+  weight: ['400', '500'],
 });
 
 export const metadata: Metadata = {
@@ -28,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <body className={`${geistSans.variable} ${lora.variable} font-sans antialiased`}>
+      <body className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark"

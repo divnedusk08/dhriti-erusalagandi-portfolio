@@ -14,9 +14,9 @@ export function Logo(props: SVGProps<SVGSVGElement>) {
       <text
         x="0"
         y="21"
-        fontFamily="var(--font-geist-sans), Arial, sans-serif"
-        fontSize="22"
-        fontWeight="400"
+        fontFamily="-apple-system, BlinkMacSystemFont, var(--font-sans), sans-serif"
+        fontSize="21"
+        fontWeight="600"
         fill="currentColor"
         letterSpacing="-0.01em"
       >
