@@ -2,13 +2,12 @@
 
 import Image from "next/image";
 import * as React from "react";
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
-import { ExternalLink, Github, Info, Lightbulb, Settings2, Code } from "lucide-react";
+import { ExternalLink, Github, Info, Lightbulb, Settings2, Code, ArrowUpRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
-import { cn } from "@/lib/utils";
 
 export interface Project {
   id: string;
@@ -32,41 +31,12 @@ interface ProjectCardProps {
 export function ProjectCard({ project }: ProjectCardProps) {
   const [isDialogOpen, setIsDialogOpen] = useState(false);
   const [isCodeDialogOpen, setIsCodeDialogOpen] = useState(false);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [style, setStyle] = useState<React.CSSProperties>({});
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!cardRef.current) return;
-    const { left, top, width, height } = cardRef.current.getBoundingClientRect();
-    const x = e.clientX - left;
-    const y = e.clientY - top;
-    const rotateX = (y - height / 2) / (height / 2) * -8;
-    const rotateY = (x - width / 2) / (width / 2) * 8;
-
-    setStyle({
-      transform: `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`,
-      transition: "transform 0.1s ease-out",
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setStyle({
-      transform: "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)",
-      transition: "transform 0.4s ease-in-out",
-    });
-  };
 
   const isCanvaLink = project.liveLink?.includes("canva.com");
 
   return (
-    <div 
-      ref={cardRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      style={style}
-      className="h-full"
-    >
-      <Card className="group flex h-full flex-col overflow-hidden shadow-lg border-accent/20 bg-card/80 backdrop-blur-sm rounded-3xl">
+    <div className="h-full">
+      <Card className="group flex h-full flex-col overflow-hidden rounded-xl border border-border bg-background transition-colors hover:border-foreground/30">
         <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
           {project.imageUrl && (
             <CardHeader className="relative p-0">
@@ -176,18 +146,21 @@ export function ProjectCard({ project }: ProjectCardProps) {
           </DialogContent>
         </Dialog>
 
-        <CardContent className={`flex-grow p-5 ${!project.imageUrl ? 'pt-5' : ''}`}>
-          <CardTitle className="mb-2 text-xl font-semibold text-primary">
+        <CardContent className="flex-grow p-6">
+          <CardTitle className="mb-2 text-lg font-medium text-foreground">
             {project.title}
           </CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
+          <CardDescription className="text-sm leading-relaxed text-muted-foreground">
             {project.shortDescription}
           </CardDescription>
         </CardContent>
-        <CardFooter className="p-5 pt-0">
-          <Button variant="outline" className="w-full" onClick={() => setIsDialogOpen(true)}>
-            <Info className="mr-2 h-4 w-4" /> View Details
-          </Button>
+        <CardFooter className="p-6 pt-0">
+          <button
+            onClick={() => setIsDialogOpen(true)}
+            className="link-underline inline-flex items-center text-sm font-medium text-foreground"
+          >
+            View details <ArrowUpRight className="ml-1 h-4 w-4" />
+          </button>
         </CardFooter>
       </Card>
     </div>
