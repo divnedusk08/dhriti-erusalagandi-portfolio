@@ -76,10 +76,11 @@ export default function HomePage() {
       setCursorAnimationClass('animate-blink');
       setIsCursorInDOM(true);
       
-      // Use variable typing speed for a smoother, more human feel
-      const baseDelay = 80;
-      const randomDelay = Math.random() * 40;
-      const nextCharDelay = typedTitle.length === 2 ? 200 : baseDelay + randomDelay; // Pause slightly after "Hi,"
+      // Variable delay for a more human-like, "smoother" typing feel
+      const baseDelay = 65; // Slightly faster base speed
+      const randomDelay = Math.random() * 30;
+      // Pause slightly after the comma for better pacing
+      const nextCharDelay = typedTitle.length === 2 ? 220 : baseDelay + randomDelay;
 
       typingTimeoutId = setTimeout(() => {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
@@ -88,11 +89,11 @@ export default function HomePage() {
       // Sequence when typing finishes
       setIsTypingComplete(true);
       
-      // Keep cursor blinking for a moment before fading it
+      // Fade out cursor gracefully
       typingTimeoutId = setTimeout(() => {
         setCursorAnimationClass('animate-fade-out');
-        setTimeout(() => setIsCursorInDOM(false), 300);
-      }, 800);
+        setTimeout(() => setIsCursorInDOM(false), 400);
+      }, 900);
     }
 
     return () => clearTimeout(typingTimeoutId);
@@ -127,26 +128,26 @@ export default function HomePage() {
         {/* Hero Section */}
         <section id="about" className="relative overflow-hidden flex min-h-[calc(100vh-4rem)] flex-col items-center justify-center text-center px-4 pt-16 pb-8 md:pt-24 md:pb-12 bg-background">
           <div className={cn(
-            "absolute inset-0 transition-opacity duration-1000 ease-in-out",
+            "absolute inset-0 transition-opacity duration-[2000ms] ease-in-out",
             typedTitle.length > 0 ? "opacity-100" : "opacity-0"
           )}>
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
           </div>
           <div className="relative z-10 flex flex-col items-center justify-center">
-            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl pb-2 min-h-[1.2em]">
+            <h1 className="text-6xl font-extrabold tracking-tight bg-gradient-to-r from-primary via-indigo-500 to-secondary bg-clip-text text-transparent sm:text-7xl md:text-8xl pb-2 min-h-[1.2em] leading-tight">
               {typedTitle}
-              {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground`}>|</span>}
+              {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground inline-block align-baseline`}>|</span>}
             </h1>
             <p className={cn(
-              "mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1)",
-              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              "mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed transition-all duration-1000 cubic-bezier(0.16, 1, 0.3, 1)",
+              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}>
               Aspiring Biomedical Engineer and Entrepreneur | Rouse High School | Class of 2030
             </p>
             <div className={cn(
-              "mt-10 flex flex-row gap-4 items-center justify-center transition-all duration-1000 delay-200 cubic-bezier(0.23, 1, 0.32, 1)",
-              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
+              "mt-10 flex flex-row gap-4 items-center justify-center transition-all duration-[1200ms] delay-300 cubic-bezier(0.16, 1, 0.3, 1)",
+              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
             )}>
               <a
                 href="https://canva.link/33nqckkbyiwxj2v"
@@ -164,7 +165,7 @@ export default function HomePage() {
               </a>
             </div>
             <div className={cn(
-              "mt-12 flex flex-col items-center transition-all duration-1000 delay-500",
+              "mt-12 flex flex-col items-center transition-all duration-1000 delay-700",
               isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
               <p className="text-lg text-muted-foreground animate-subtle-blink">Scroll down to explore</p>
