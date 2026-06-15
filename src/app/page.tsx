@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState, useEffect, useRef } from "react";
@@ -61,6 +62,7 @@ export default function HomePage() {
   const [typedTitle, setTypedTitle] = useState("");
   const [isCursorInDOM, setIsCursorInDOM] = useState(true);
   const [cursorAnimationClass, setCursorAnimationClass] = useState('animate-blink');
+  const [isTypingComplete, setIsTypingComplete] = useState(false);
 
   const [whoIAmRef, isWhoIAmVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
   const [interestsRef, isInterestsVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
@@ -69,30 +71,31 @@ export default function HomePage() {
     if (isLoading) return;
 
     let typingTimeoutId: NodeJS.Timeout;
-    let cursorBlinkTimeoutId: NodeJS.Timeout;
-    let cursorFadeTimeoutId: NodeJS.Timeout;
 
     if (typedTitle.length < fullTitle.length) {
       setCursorAnimationClass('animate-blink');
       setIsCursorInDOM(true);
+      
+      // Use variable typing speed for a smoother, more human feel
+      const baseDelay = 80;
+      const randomDelay = Math.random() * 40;
+      const nextCharDelay = typedTitle.length === 2 ? 200 : baseDelay + randomDelay; // Pause slightly after "Hi,"
+
       typingTimeoutId = setTimeout(() => {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
-      }, 100);
+      }, nextCharDelay);
     } else {
-      setCursorAnimationClass('animate-blink');
-      cursorBlinkTimeoutId = setTimeout(() => {
+      // Sequence when typing finishes
+      setIsTypingComplete(true);
+      
+      // Keep cursor blinking for a moment before fading it
+      typingTimeoutId = setTimeout(() => {
         setCursorAnimationClass('animate-fade-out');
-        cursorFadeTimeoutId = setTimeout(() => {
-          setIsCursorInDOM(false);
-        }, 50); 
-      }, 150);
+        setTimeout(() => setIsCursorInDOM(false), 300);
+      }, 800);
     }
 
-    return () => {
-      clearTimeout(typingTimeoutId);
-      clearTimeout(cursorBlinkTimeoutId);
-      clearTimeout(cursorFadeTimeoutId);
-    };
+    return () => clearTimeout(typingTimeoutId);
   }, [typedTitle, fullTitle, isLoading]);
 
   if (isLoading) {
@@ -136,33 +139,33 @@ export default function HomePage() {
               {isCursorInDOM && <span className={`typewriter-cursor ${cursorAnimationClass} text-foreground`}>|</span>}
             </h1>
             <p className={cn(
-              "mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed transition-all duration-1000 delay-300",
-              typedTitle.length >= fullTitle.length ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "mt-6 max-w-2xl font-[var(--font-lora)] text-lg sm:text-xl text-muted-foreground leading-relaxed transition-all duration-1000 cubic-bezier(0.23, 1, 0.32, 1)",
+              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}>
               Aspiring Biomedical Engineer and Entrepreneur | Rouse High School | Class of 2030
             </p>
             <div className={cn(
-              "mt-10 flex flex-row gap-4 items-center justify-center transition-all duration-1000 delay-500",
-              typedTitle.length >= fullTitle.length ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
+              "mt-10 flex flex-row gap-4 items-center justify-center transition-all duration-1000 delay-200 cubic-bezier(0.23, 1, 0.32, 1)",
+              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
             )}>
               <a
                 href="https://canva.link/33nqckkbyiwxj2v"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-secondary px-6 py-3 text-base font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105"
+                className="inline-flex items-center justify-center rounded-xl bg-gradient-to-r from-primary to-secondary px-6 py-3 text-base font-semibold text-primary-foreground shadow-md transition-all duration-300 hover:shadow-[0_0_20px_rgba(37,99,235,0.3)] hover:scale-105 active:scale-95"
               >
                 View Resume
               </a>
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center rounded-xl border border-border bg-card/40 backdrop-blur-sm px-6 py-3 text-base font-semibold text-foreground transition-all duration-300 hover:border-primary/50 hover:bg-muted/40 hover:scale-105"
+                className="inline-flex items-center justify-center rounded-xl border border-border bg-card/40 backdrop-blur-sm px-6 py-3 text-base font-semibold text-foreground transition-all duration-300 hover:border-primary/50 hover:bg-muted/40 hover:scale-105 active:scale-95"
               >
                 Get in Touch
               </a>
             </div>
             <div className={cn(
-              "mt-12 flex flex-col items-center transition-opacity duration-1000 delay-700",
-              typedTitle.length >= fullTitle.length ? "opacity-100" : "opacity-0"
+              "mt-12 flex flex-col items-center transition-all duration-1000 delay-500",
+              isTypingComplete ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
             )}>
               <p className="text-lg text-muted-foreground animate-subtle-blink">Scroll down to explore</p>
               <ChevronDown className="h-10 w-10 text-muted-foreground mt-1 animate-bobbing" />
