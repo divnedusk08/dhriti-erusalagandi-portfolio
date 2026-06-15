@@ -65,7 +65,10 @@ export function Header() {
             rel="noopener noreferrer"
             className="ml-4"
           >
-            <Button variant="outline" className="border-primary/50 text-primary hover:bg-primary/10 font-semibold rounded-xl">
+            <Button 
+              variant="outline" 
+              className="border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold rounded-xl transition-all duration-300"
+            >
               Resume
             </Button>
           </a>
@@ -95,7 +98,10 @@ export function Header() {
                   rel="noopener noreferrer"
                   className="w-full pt-4"
                 >
-                  <Button variant="outline" className="w-full border-primary/50 text-primary font-semibold rounded-xl">
+                  <Button 
+                    variant="outline" 
+                    className="w-full border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground hover:border-primary font-semibold rounded-xl transition-all duration-300"
+                  >
                     Resume
                   </Button>
                 </a>
