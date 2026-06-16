@@ -35,40 +35,21 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const formData = new FormData();
-      formData.append("name", values.name);
-      formData.append("email", values.email);
-      formData.append("message", values.message);
-
-      const result = await submitContactForm({ success: false, message: "" }, formData);
+      const result = await submitContactForm(values);
 
       if (result.success) {
-        toast({
-          title: "Success!",
-          description: result.message,
-        });
+        toast({ title: "Success!", description: result.message });
         form.reset();
       } else {
-        toast({
-          variant: "destructive",
-          title: "Sending Failed",
-          description: result.message,
-        });
+        toast({ variant: "destructive", title: "Failed", description: result.message });
       }
 
       if (db) {
         const contactsRef = collection(db, "contacts");
-        addDoc(contactsRef, {
-          ...values,
-          createdAt: serverTimestamp(),
-        }).catch(() => {});
+        addDoc(contactsRef, { ...values, createdAt: serverTimestamp() }).catch(() => {});
       }
-    } catch (error) {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Something went wrong. Please try again.",
-      });
+    } catch {
+      toast({ variant: "destructive", title: "Error", description: "Something went wrong. Please try again." });
     } finally {
       setIsSubmitting(false);
     }

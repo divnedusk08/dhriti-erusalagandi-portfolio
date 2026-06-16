@@ -1,47 +1,37 @@
 "use server";
 
-import { z } from "zod";
-import { ContactFormSchema } from "./schemas";
+import { ContactFormSchema, type ContactFormValues } from "./schemas";
 import { Resend } from 'resend';
 
 export type ContactFormState = {
   message: string;
-  fields?: Record<string, string>;
-  issues?: string[];
   success: boolean;
 };
 
 export async function submitContactForm(
-  prevState: ContactFormState,
-  data: FormData
+  values: ContactFormValues
 ): Promise<ContactFormState> {
-  const formData = Object.fromEntries(data);
-  const parsed = ContactFormSchema.safeParse(formData);
+  const parsed = ContactFormSchema.safeParse(values);
 
   if (!parsed.success) {
     return {
       message: "Invalid form data. Please check the fields below.",
-      fields: formData as Record<string, string>,
-      issues: parsed.error.issues.map((issue) => issue.message),
       success: false,
     };
   }
 
   const { name, email, message: userMessage } = parsed.data;
 
-  // Safely check for API key
   const apiKey = process.env.RESEND_API_KEY;
 
   if (!apiKey || apiKey.trim() === "") {
-    console.warn("RESEND_API_KEY is missing. Please add it to your environment variables.");
     return {
-      message: "Email service not configured. Please add your RESEND_API_KEY to receive emails.",
+      message: "Missing RESEND_API_KEY. Copy env.example to .env.local and add your key from https://resend.com/api-keys",
       success: false,
     };
   }
 
   try {
-    // Initialize Resend only when the key is confirmed to exist
     const resend = new Resend(apiKey);
 
     await resend.emails.send({
@@ -60,14 +50,14 @@ export async function submitContactForm(
     });
 
     return {
-      message: `Thank you, ${name}! Your message has been sent to my Gmail.`,
+      message: `Thank you, ${name}! Your message has been sent.`,
       success: true,
     };
 
   } catch (error: any) {
     console.error("Failed to send email:", error);
     return {
-      message: `Error sending message: ${error.message || "Please try again later."}`,
+      message: `Error: ${error?.message || "Something went wrong. Please try again."}`,
       success: false,
     };
   }
