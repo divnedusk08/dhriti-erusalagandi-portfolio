@@ -32,3 +32,4 @@
 ## Notable
 - next.config.ts ignores TS/ESLint during `next build` — rely on `npm run typecheck` and `npm run lint` for local validation
 - Profile images use `placehold.co` and `www.canva.com` in next.config remotePatterns
+
