@@ -34,7 +34,7 @@ export async function submitContactForm(
   try {
     const resend = new Resend(apiKey);
 
-    await resend.emails.send({
+    const { data, error } = await resend.emails.send({
       from: 'Portfolio Contact <onboarding@resend.dev>',
       to: ['divineduskdragon08@gmail.com'],
       subject: `New Contact from ${name} via Portfolio`,
@@ -48,6 +48,11 @@ export async function submitContactForm(
         </div>
       `,
     });
+
+    if (error) {
+      console.error("Resend API error:", error);
+      return { message: `Error: ${error.message}`, success: false };
+    }
 
     return {
       message: `Thank you, ${name}! Your message has been sent.`,
