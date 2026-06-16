@@ -1,12 +1,12 @@
 'use client';
 
-// Note: This configuration object is intended to be used with the Firebase Client SDK.
-// It is public and secure to include here. Access is controlled by Security Rules.
+// Set real values in .env.local to override these defaults.
+// Access is ultimately controlled by Firestore Security Rules.
 export const firebaseConfig = {
-  apiKey: "AIzaSyDummyKey",
-  authDomain: "portfolio-dhriti.firebaseapp.com",
-  projectId: "portfolio-dhriti",
-  storageBucket: "portfolio-dhriti.appspot.com",
-  messagingSenderId: "123456789",
-  appId: "1:123456789:web:abcdef"
+  apiKey: process.env.NEXT_PUBLIC_FIREBASE_API_KEY || "AIzaSyDummyKey",
+  authDomain: process.env.NEXT_PUBLIC_FIREBASE_AUTH_DOMAIN || "portfolio-dhriti.firebaseapp.com",
+  projectId: process.env.NEXT_PUBLIC_FIREBASE_PROJECT_ID || "portfolio-dhriti",
+  storageBucket: process.env.NEXT_PUBLIC_FIREBASE_STORAGE_BUCKET || "portfolio-dhriti.appspot.com",
+  messagingSenderId: process.env.NEXT_PUBLIC_FIREBASE_MESSAGING_SENDER_ID || "123456789",
+  appId: process.env.NEXT_PUBLIC_FIREBASE_APP_ID || "1:123456789:web:abcdef"
 };
