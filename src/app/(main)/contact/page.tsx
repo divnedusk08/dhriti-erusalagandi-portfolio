@@ -12,13 +12,9 @@ import { useToast } from "@/hooks/use-toast";
 import { Loader2, Mail, Send, MessageSquare, User, MapPin } from "lucide-react";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
 import { cn } from "@/lib/utils";
-import { collection, addDoc, serverTimestamp } from "firebase/firestore";
-import { useFirestore } from "@/firebase";
-import { submitContactForm } from "@/lib/actions";
 
 export default function ContactSection() {
   const { toast } = useToast();
-  const db = useFirestore();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [containerRef, isVisible] = useIntersectionObserver({ threshold: 0.1, triggerOnce: true });
 
@@ -35,18 +31,19 @@ export default function ContactSection() {
     setIsSubmitting(true);
 
     try {
-      const result = await submitContactForm(values);
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(values),
+      });
+
+      const result = await res.json();
 
       if (result.success) {
         toast({ title: "Success!", description: result.message });
         form.reset();
       } else {
         toast({ variant: "destructive", title: "Failed", description: result.message });
-      }
-
-      if (db) {
-        const contactsRef = collection(db, "contacts");
-        addDoc(contactsRef, { ...values, createdAt: serverTimestamp() }).catch(() => {});
       }
     } catch {
       toast({ variant: "destructive", title: "Error", description: "Something went wrong. Please try again." });
