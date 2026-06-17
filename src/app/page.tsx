@@ -38,9 +38,9 @@ export default function HomePage() {
       setCursorAnimationClass('animate-blink');
       setIsCursorInDOM(true);
 
-      const baseDelay = 30;
-      const randomDelay = Math.random() * 15;
-      const nextCharDelay = typedTitle.length === 2 ? 80 : baseDelay + randomDelay;
+      const baseDelay = 65;
+      const randomDelay = Math.random() * 30;
+      const nextCharDelay = typedTitle.length === 2 ? 220 : baseDelay + randomDelay;
 
       typingTimeoutId = setTimeout(() => {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
