@@ -50,7 +50,6 @@ const projectsData: Project[] = [
     ],
     techStack: ["Python", "PyQt5", "Requests", "OpenWeatherMap API"],
     liveLink: undefined,
-    repoLink: "https://github.com/yourusername/weather-app",
     codeContent: `import sys
 import requests
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel,
