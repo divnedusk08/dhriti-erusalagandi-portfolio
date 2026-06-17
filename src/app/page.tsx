@@ -38,11 +38,9 @@ export default function HomePage() {
       setCursorAnimationClass('animate-blink');
       setIsCursorInDOM(true);
 
-      // Variable delay for a more human-like, "smoother" typing feel
-      const baseDelay = 65; // Slightly faster base speed
-      const randomDelay = Math.random() * 30;
-      // Pause slightly after the comma for better pacing
-      const nextCharDelay = typedTitle.length === 2 ? 220 : baseDelay + randomDelay;
+      const baseDelay = 30;
+      const randomDelay = Math.random() * 15;
+      const nextCharDelay = typedTitle.length === 2 ? 80 : baseDelay + randomDelay;
 
       typingTimeoutId = setTimeout(() => {
         setTypedTitle(fullTitle.substring(0, typedTitle.length + 1));
@@ -154,11 +152,12 @@ export default function HomePage() {
 
           <div
             className={cn(
-              "absolute bottom-8 left-1/2 -translate-x-1/2 transition-opacity duration-1000 delay-700",
+              "absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 transition-opacity duration-1000 delay-700",
               isTypingComplete ? "opacity-60" : "opacity-0"
             )}
           >
-            <ChevronDown className="h-6 w-6 text-muted-foreground animate-bobbing" />
+            <span className="text-xs tracking-widest uppercase text-muted-foreground">Scroll to explore</span>
+            <ChevronDown className="h-5 w-5 text-muted-foreground animate-bobbing" />
           </div>
         </section>
 
@@ -172,7 +171,7 @@ export default function HomePage() {
               className={cn("mb-20 fade-in-up", { "is-visible": isWhoIAmVisible })}
             >
               <h3 className="mb-6 text-2xl font-semibold tracking-tight text-foreground">Who I am</h3>
-              <p className="max-w-4xl text-xl leading-relaxed text-muted-foreground md:text-2xl">
+              <p className="max-w-4xl text-lg leading-relaxed text-muted-foreground md:text-xl">
                 {currentBio}
               </p>
             </div>
