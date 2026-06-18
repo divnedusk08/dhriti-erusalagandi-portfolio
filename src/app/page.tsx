@@ -99,7 +99,7 @@ export default function HomePage() {
             <FloatingPaths position={1} />
             <FloatingPaths position={-1} />
           </div>
-          <div className="relative z-10 mx-auto w-full max-w-4xl">
+          <div className="relative z-10 mx-auto w-full max-w-5xl scale-[1.15] origin-top">
             <p
               className={cn(
                 "eyebrow mb-6 transition-all duration-700",
