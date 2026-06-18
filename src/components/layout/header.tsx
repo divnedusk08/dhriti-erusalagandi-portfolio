@@ -49,7 +49,7 @@ export function Header() {
       <div className="mx-auto flex h-16 w-full max-w-6xl items-center justify-between px-6 md:px-10">
         <Link
           href="/#about"
-          className="flex items-center text-foreground transition-opacity hover:opacity-70 -ml-5"
+          className="flex items-center text-foreground transition-opacity hover:opacity-70 -ml-6 md:-ml-10"
           aria-label="Dhriti Home"
         >
           <Logo />
